@@ -1,0 +1,10 @@
+{
+  // Console Ninja injects a build hook into node_modules/next/dist/server/lib/start-server.js
+  // and rewrites the JS chunks Turbopack serves. The rewrite emits invalid syntax, so every
+  // client chunk fails to parse, React never hydrates and no GSAP animation runs.
+  // Next 16 uses Turbopack by default, which is the condition the hook activates on.
+  // Disabled for next.js only — Console Ninja still works for this machine's other tools.
+  "console-ninja.toolsToEnableSupportAutomaticallyFor": {
+    "next.js": false
+  }
+}

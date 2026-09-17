@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Favicon: the Everest dome and summit, simplified so it stays legible at 16px.
+       The full lockup in public/brand/everest-logo.png is used everywhere else. -->
+  <defs>
+    <clipPath id="dome"><path d="M3 44V30a21 21 0 0 1 42 0v14Z"/></clipPath>
+  </defs>
+  <path d="M3 44V30a21 21 0 0 1 42 0v14Z" fill="#23225b" stroke="#221f1f" stroke-width="2"/>
+  <g clip-path="url(#dome)">
+    <path d="M2 44 17 20l6 7 6-12 17 29Z" fill="#ffffff" stroke="#221f1f" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M2 44V34l6-3 5 3 6-4 5 4 6-4 5 4 6-3 5 3v10Z" fill="#2cbae2" stroke="#221f1f" stroke-width="1.5" stroke-linejoin="round"/>
+  </g>
+</svg>
