@@ -10,7 +10,7 @@ import { gsap, isRtl, mediaQueries, motion, registerGsap, ScrollTrigger } from "
  * behind the content and swings from side to side as the visitor moves from
  * section to section, brightening and dimming as it goes — so consecutive
  * sections read as a light scene and a dark scene without any hard colour
- * bands. A faint violet counter-light always sits on the opposite side.
+ * bands. A faint indigo counter-light always sits on the opposite side.
  *
  * Lives once in the root layout — outside the page content that route changes
  * replace — so its triggers are rebuilt against the new page's top-level
@@ -98,7 +98,7 @@ export function AuroraOrbs() {
       />
       <span
         data-orb="counter"
-        className="absolute left-1/2 top-[62%] h-[min(60vw,46rem)] w-[min(60vw,46rem)] rounded-full will-change-transform [background:radial-gradient(circle,rgb(124_92_255/0.3)_0%,transparent_65%)]"
+        className="absolute left-1/2 top-[62%] h-[min(60vw,46rem)] w-[min(60vw,46rem)] rounded-full will-change-transform [background:radial-gradient(circle,rgb(82_89_156/0.42)_0%,transparent_65%)]"
       />
       <span className="aurora-grain absolute inset-0" />
     </div>

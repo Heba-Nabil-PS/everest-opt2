@@ -58,7 +58,7 @@ export function MegaMenu({
             content scrolling behind it. */}
         <div className="relative isolate overflow-hidden rounded-[1.75rem] border border-white/10 bg-navy-900 shadow-2xl">
           <Glow className="-start-16 -top-16 h-64 w-64" />
-          <Glow tone="violet" className="-end-16 bottom-0 h-64 w-64" />
+          <Glow tone="indigo" className="-end-16 bottom-0 h-64 w-64" />
 
           <div className="relative grid gap-8 p-8 lg:grid-cols-[1fr_auto]">
             <div>

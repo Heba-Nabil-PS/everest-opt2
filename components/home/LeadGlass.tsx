@@ -39,7 +39,7 @@ export function LeadGlass({ dictionary: d }: { dictionary: Dictionary }) {
 
         <div className="relative mx-auto mt-10 flex max-w-4xl justify-center">
           <Glow className="-start-10 top-10 h-80 w-80" />
-          <Glow tone="violet" className="-end-10 bottom-0 h-80 w-80" />
+          <Glow tone="indigo" className="-end-10 bottom-0 h-80 w-80" />
           <Reveal animation="blur-up">
             <QuoteButton size="lg" icon="arrowRight">
               {d.cta.requestQuote}

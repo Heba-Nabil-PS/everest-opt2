@@ -59,23 +59,34 @@ export function MediaGallery({
 
   return (
     <div>
-      <div role="group" aria-label={g.heading} className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1">
-        {filters.map((key) => (
-          <button
-            key={key}
-            type="button"
-            aria-pressed={filter === key}
-            onClick={() => setFilter(key)}
-            className={cn(
-              "inline-flex min-h-11 shrink-0 items-center rounded-full border px-5 text-sm font-medium transition-colors",
-              filter === key
-                ? "border-navy-700 bg-navy-700 text-white"
-                : "border-hairline-strong bg-white text-ink hover:border-glacier-400",
-            )}
-          >
-            {g.filters[key]}
-          </button>
-        ))}
+      {/* One frosted track with soft segments, rather than four standalone
+          pills. The gallery sits inside a tab strip whose tabs are already
+          capsules; repeating that shape one level down reads as a second row
+          of tabs. A segmented control is visibly subordinate to it. */}
+      <div className="no-scrollbar -mx-1 flex overflow-x-auto px-1 py-1">
+        <div
+          role="group"
+          aria-label={g.heading}
+          className="glass-chip inline-flex shrink-0 gap-1 rounded-full p-1"
+        >
+          {filters.map((key) => (
+            <button
+              key={key}
+              type="button"
+              aria-pressed={filter === key}
+              onClick={() => setFilter(key)}
+              className={cn(
+                "inline-flex min-h-9 shrink-0 items-center rounded-full px-4 text-sm font-medium",
+                "transition-[background-color,color] duration-200 ease-[var(--ease-out-soft)]",
+                filter === key
+                  ? "bg-white/15 text-white shadow-[inset_0_1px_0_0_rgb(255_255_255/0.2)]"
+                  : "text-ink-muted hover:text-ink-strong",
+              )}
+            >
+              {g.filters[key]}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Masonry-feel grid: the first tile and every sixth one span two cells */}

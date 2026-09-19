@@ -62,7 +62,7 @@ export function ServicesPanels({
                 <span
                   className={cn(
                     "grid h-12 w-12 shrink-0 place-items-center rounded-2xl transition-colors duration-500",
-                    open ? "bg-gradient-to-br from-glacier-400 to-[#7c5cff] text-navy-950" : "glass-chip text-glacier-300",
+                    open ? "bg-gradient-to-br from-glacier-400 to-steel-light text-navy-950" : "glass-chip text-glacier-300",
                   )}
                 >
                   <Icon name={icons[index]} size={24} />

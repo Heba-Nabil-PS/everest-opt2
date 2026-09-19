@@ -14,7 +14,7 @@ import type { Dictionary } from "@/lib/i18n";
 /**
  * Who Everest is, as a bento of frosted tiles: the statement lights up word by
  * word in the large tile, the audited figures count up in the small ones, a
- * factory photograph carries the market count, and the certifications close
+ * container-port photograph carries the market count, and the certifications close
  * the grid. Every figure comes from the dictionary.
  */
 export function ProofBento({ locale, dictionary: d }: { locale: Locale; dictionary: Dictionary }) {
@@ -51,7 +51,7 @@ export function ProofBento({ locale, dictionary: d }: { locale: Locale; dictiona
           {/* Photograph carrying the market count */}
           <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 md:col-span-2">
             <ImageReveal variant="clip-side" parallax={12} className="absolute inset-0">
-              <Image src="/images/about-factory.jpg" alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <Image src="/images/presence-port.jpg" alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </ImageReveal>
             <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/40 to-transparent" />
             <div className="relative flex h-full min-h-[14rem] items-end justify-between gap-4 p-6 lg:p-8">
@@ -89,7 +89,7 @@ export function ProofBento({ locale, dictionary: d }: { locale: Locale; dictiona
           {/* Certifications */}
           <div className={cn(tile, "flex flex-col justify-between gap-6 md:col-span-2")}>
             <div className="flex items-start gap-4">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-glacier-400 to-[#7c5cff] text-navy-950">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-glacier-400 to-steel-light text-navy-950">
                 <Icon name="shield" size={20} />
               </span>
               <p className="max-w-[46ch] text-sm text-white/70">{d.home.trust.intro}</p>
@@ -135,7 +135,7 @@ function StatTile({
       <span
         className={cn(
           "grid h-11 w-11 place-items-center rounded-full",
-          accent ? "bg-gradient-to-br from-glacier-400 to-[#7c5cff] text-navy-950" : "glass-chip text-glacier-300",
+          accent ? "bg-gradient-to-br from-glacier-400 to-steel-light text-navy-950" : "glass-chip text-glacier-300",
         )}
       >
         <Icon name={icon} size={20} />

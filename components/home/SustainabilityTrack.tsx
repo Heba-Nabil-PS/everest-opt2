@@ -36,7 +36,7 @@ export function SustainabilityTrack({
 
         <div className="relative mt-10">
           <Glow className="-start-16 -top-10 h-80 w-80" />
-          <Glow tone="violet" className="-end-16 bottom-0 h-72 w-72" />
+          <Glow tone="indigo" className="-end-16 bottom-0 h-72 w-72" />
 
           {/* Dated track — the line draws as you scroll */}
           <div className="relative">

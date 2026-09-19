@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Section, SectionHeading, Shell, Eyebrow } from "@/components/ui/Section";
 import { PhotoBackdrop } from "@/components/ui/PhotoBackdrop";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Badge, EnergyBadge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon, type IconName } from "@/components/ui/Icon";
@@ -11,8 +12,6 @@ import { Reveal } from "@/components/motion/Reveal";
 import { ScrollDrawLine } from "@/components/motion/ScrollDraw";
 import { Slider } from "@/components/motion/Slider";
 import { TextReveal } from "@/components/motion/TextReveal";
-import { NextProduct } from "@/components/product/NextProduct";
-import { ProductHero } from "@/components/product/ProductHero";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductCard } from "@/components/product/ProductCard";
 import { SpecTable } from "@/components/product/SpecTable";
@@ -20,7 +19,6 @@ import { QuoteForm } from "@/components/forms/QuoteForm";
 import { BreadcrumbJsonLd, ProductJsonLd } from "@/components/seo/JsonLd";
 import {
   categoryBySlug,
-  nextProduct,
   productBySlug,
   products,
   relatedProducts,
@@ -74,15 +72,13 @@ export async function generateMetadata(
 /**
  * One model, told as a case study:
  *
- *   Hero          the cabinet on a studio stage (morphs in from the card)
- *   At a glance   four decisive figures, counted in
- *   The cabinet   sticky gallery beside the story and the remaining facts
+ *   Opening       swipeable gallery beside the identity, figures and CTAs
+ *   Overview      the story and the remaining facts
  *   Features      numbered benefits with a line drawing down the list
  *   Technology    what is inside this model
  *   Specification the full table and downloads
  *   Quote         pre-filled with this model
  *   Related       swipe row of neighbouring models
- *   Next model    the link that carries the photo into the next story
  */
 export default async function ProductPage(
   props: PageProps<"/[locale]/products/[category]/[model]">,
@@ -98,9 +94,8 @@ export default async function ProductPage(
   const d = getDictionary(locale);
   const path = (p: string) => localePath(typedLocale, p);
   const url = `${site.url}${path(`/products/${product.categorySlug}/${product.slug}`)}`;
-  const next = nextProduct(product);
-  /* The next model gets its own closing section, so it is not repeated here. */
-  const related = relatedProducts(product, 6).filter((item) => item.slug !== next.slug);
+  /* The closing "next model" band is gone, so the full six can be shown. */
+  const related = relatedProducts(product, 6);
   const months = locale === "ar" ? "شهراً" : "mo";
 
   const downloads = [
@@ -126,107 +121,159 @@ export default async function ProductPage(
         ]}
       />
 
-      <ProductHero
-        product={product}
-        image={category.image}
-        eyebrow={`${category.name[typedLocale]} · ${subcategoryOf(product)?.name[typedLocale] ?? ""}`}
-        subline={product.summary[typedLocale]}
-        photoAlt={`${product.name} ${product.code}`}
-        crumbLabel={d.a11y.breadcrumb}
-        crumbs={[
-          { label: d.common.home, href: path("/") },
-          { label: d.nav.products, href: path("/products") },
-          { label: category.name[typedLocale], href: path(`/products/${category.slug}`) },
-          {
-            label: subcategoryOf(product)?.name[typedLocale] ?? "",
-            href: path(`/products/${category.slug}?type=${product.subcategory}`),
-          },
-          { label: product.name },
-        ]}
-      >
-        <p className="mt-6 flex flex-wrap items-center gap-3">
-          {/* Model code as live text, never inside an image. */}
-          <span className="ltr-inline rounded-md border border-white/20 bg-white/10 px-3 py-1.5 font-mono text-sm text-glacier-200">
-            {d.common.modelCode}: {product.code}
-          </span>
-          {product.featured ? <Badge tone="inverse">{d.common.bestSeller}</Badge> : null}
-        </p>
+      {/* The opening: no hero stage. The cabinet's own photographs carry the
+          page from the first pixel, with the identity, the decisive figures
+          and both calls to action reading beside them. The gallery sticks
+          while that column scrolls. */}
+      <section aria-labelledby="product-heading" className="pt-6 lg:pt-10">
+        <Shell>
+          <Breadcrumbs
+            label={d.a11y.breadcrumb}
+            inverse
+            items={[
+              { label: d.common.home, href: path("/") },
+              { label: d.nav.products, href: path("/products") },
+              { label: category.name[typedLocale], href: path(`/products/${category.slug}`) },
+              {
+                label: subcategoryOf(product)?.name[typedLocale] ?? "",
+                href: path(`/products/${category.slug}?type=${product.subcategory}`),
+              },
+              { label: product.name },
+            ]}
+          />
 
-        <div className="mt-9 flex flex-wrap gap-3">
-          <Magnetic>
-            <ButtonLink href="#request-a-quote" size="lg" icon="arrowRight">
-              {d.cta.requestQuote}
-            </ButtonLink>
-          </Magnetic>
-          <ButtonLink
-            href={specSheetFor(product.slug, typedLocale)}
-            size="lg"
-            variant="inverse"
-            icon="download"
-            external
-          >
-            {d.cta.downloadSpecSheet}
-          </ButtonLink>
-        </div>
-      </ProductHero>
+          <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-14">
+            <div className="min-w-0 lg:sticky lg:top-28">
+              <h2 className="sr-only">{d.productPage.galleryHeading}</h2>
+              <ProductGallery product={product} locale={typedLocale} dictionary={d} />
+            </div>
 
-      {/* At a glance */}
-      <section aria-labelledby="glance-heading" className="border-b border-hairline bg-surface">
-        <Shell className="py-14 lg:py-20">
-          <h2 id="glance-heading" className="sr-only">
-            {d.productPage.atAGlance}
-          </h2>
-          <Reveal as="dl" stagger className="grid grid-cols-2 gap-y-10 lg:grid-cols-4">
-            {[
-              { label: d.specs.capacity, value: <Counter value={specs.capacity} locale={typedLocale} />, unit: d.units.litres },
-              {
-                label: d.specs.temperatureRange,
-                value: <span className="ltr-inline">{specs.temperatureRange.min}…{specs.temperatureRange.max}</span>,
-                unit: d.units.celsius,
-              },
-              {
-                label: d.specs.annualConsumption,
-                value: <Counter value={specs.annualConsumption} locale={typedLocale} />,
-                unit: d.units.kwh,
-              },
-              {
-                label: d.specs.warranty,
-                value: <Counter value={specs.warranty.compressor} locale={typedLocale} />,
-                unit: months,
-              },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="flex flex-col-reverse gap-2 pe-4 lg:border-s lg:border-hairline lg:px-8 lg:first:border-s-0 lg:first:ps-0"
+            <div className="min-w-0">
+              <Eyebrow inverse>
+                {`${category.name[typedLocale]} · ${subcategoryOf(product)?.name[typedLocale] ?? ""}`}
+              </Eyebrow>
+
+              <h1
+                id="product-heading"
+                className="mt-4 text-4xl leading-[1.05] tracking-[-0.02em] text-white md:text-5xl xl:text-6xl"
               >
-                <dt className="text-sm text-ink-muted">{item.label}</dt>
-                <dd className="font-display text-4xl font-bold leading-none tracking-tight text-navy-700 lg:text-5xl">
-                  {item.value}
-                  <span className="ms-1.5 text-base font-semibold text-glacier-600">{item.unit}</span>
-                </dd>
+                {product.name}
+              </h1>
+
+              <p className="mt-5 max-w-[52ch] text-lg text-ink-inverse-muted">
+                {product.summary[typedLocale]}
+              </p>
+
+              <p className="mt-6 flex flex-wrap items-center gap-3">
+                {/* Model code as live text, never inside an image. */}
+                <span className="ltr-inline rounded-md border border-white/20 bg-white/10 px-3 py-1.5 font-mono text-sm text-glacier-200">
+                  {d.common.modelCode}: {product.code}
+                </span>
+                {product.featured ? <Badge tone="inverse">{d.common.bestSeller}</Badge> : null}
+                <EnergyBadge value={specs.energyClass} label={d.common.energyClass} />
+              </p>
+
+              {/* The four figures a buyer shortlists on. */}
+              <Reveal
+                as="dl"
+                stagger
+                aria-label={d.productPage.atAGlance}
+                className="mt-9 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline sm:grid-cols-4"
+              >
+                {[
+                  { label: d.specs.capacity, value: <Counter value={specs.capacity} locale={typedLocale} />, unit: d.units.litres },
+                  {
+                    label: d.specs.temperatureRange,
+                    value: <span className="ltr-inline">{specs.temperatureRange.min}…{specs.temperatureRange.max}</span>,
+                    unit: d.units.celsius,
+                  },
+                  {
+                    label: d.specs.annualConsumption,
+                    value: <Counter value={specs.annualConsumption} locale={typedLocale} />,
+                    unit: d.units.kwh,
+                  },
+                  {
+                    label: d.specs.warranty,
+                    value: <Counter value={specs.warranty.compressor} locale={typedLocale} />,
+                    unit: months,
+                  },
+                ].map((item) => (
+                  /* column-reverse + justify-between: the label is last in the
+                     DOM order a <dl> needs, but pins to the foot of the cell,
+                     so a two-line label never pushes its figure out of line
+                     with the other three. */
+                  <div
+                    key={item.label}
+                    className="flex h-full flex-col-reverse justify-between gap-2 bg-surface p-5"
+                  >
+                    <dt className="text-2xs uppercase tracking-[0.12em] text-ink-muted">{item.label}</dt>
+                    <dd className="font-display text-3xl font-bold leading-none tracking-tight text-white">
+                      {item.value}
+                      <span className="ms-1 text-sm font-semibold text-glacier-600">{item.unit}</span>
+                    </dd>
+                  </div>
+                ))}
+              </Reveal>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Magnetic>
+                  <ButtonLink href="#request-a-quote" size="lg" icon="arrowRight">
+                    {d.cta.requestQuote}
+                  </ButtonLink>
+                </Magnetic>
+                <ButtonLink
+                  href={specSheetFor(product.slug, typedLocale)}
+                  size="lg"
+                  variant="inverse"
+                  icon="download"
+                  external
+                >
+                  {d.cta.downloadSpecSheet}
+                </ButtonLink>
               </div>
-            ))}
-          </Reveal>
+
+              {product.retail ? (
+                <div className="mt-8 rounded-2xl border border-hairline bg-surface-muted p-5">
+                  <p className="font-display font-semibold text-ink-strong">
+                    {d.productPage.retailHeading}
+                  </p>
+                  <p className="mt-1 text-sm text-ink-muted">{d.productPage.retailBody}</p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    {product.retail.amazon ? (
+                      <ButtonLink href={product.retail.amazon} variant="ghost" size="sm" icon="arrowUpRight" external>
+                        {d.common.buyOnAmazon}
+                      </ButtonLink>
+                    ) : null}
+                    {product.retail.noon ? (
+                      <ButtonLink href={product.retail.noon} variant="ghost" size="sm" icon="arrowUpRight" external>
+                        {d.common.buyOnNoon}
+                      </ButtonLink>
+                    ) : null}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
         </Shell>
       </section>
 
-      {/* The cabinet: gallery holds still while the story scrolls beside it. */}
+      {/* The story and the remaining facts, now that the cabinet is understood. */}
       <Section aria-labelledby="overview-heading">
-        <Shell className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
-          <div className="lg:sticky lg:top-28">
-            <h2 className="sr-only">{d.productPage.galleryHeading}</h2>
-            <ProductGallery product={product} locale={typedLocale} dictionary={d} />
-          </div>
+        <Shell className="grid gap-10 lg:grid-cols-[1fr_1.35fr] lg:items-start lg:gap-16">
+          <SectionHeading
+            id="overview-heading"
+            eyebrow={d.productPage.storyEyebrow}
+            title={d.productPage.overviewHeading}
+            className="lg:sticky lg:top-28"
+          />
 
           <div>
-            <SectionHeading
-              id="overview-heading"
-              eyebrow={d.productPage.storyEyebrow}
-              title={d.productPage.overviewHeading}
-            />
+            {/* `scrub`: the statement lights up word by word with the scroll,
+                the same treatment the home bento gives its opening claim. */}
             <TextReveal
               as="p"
-              className="mt-6 font-display text-2xl leading-snug text-ink-strong lg:text-3xl"
+              variant="scrub"
+              className="font-display text-2xl leading-snug text-ink-strong lg:text-3xl"
             >
               {product.description[typedLocale]}
             </TextReveal>
@@ -234,7 +281,7 @@ export default async function ProductPage(
             <Reveal
               as="dl"
               stagger
-              className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline"
+              className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline sm:grid-cols-3"
             >
               {[
                 { label: d.specs.doors, value: String(specs.doors) },
@@ -256,31 +303,7 @@ export default async function ProductPage(
               ))}
             </Reveal>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <EnergyBadge value={specs.energyClass} label={d.common.energyClass} />
-              <span className="text-xs text-ink-muted">{d.productPage.energyNote}</span>
-            </div>
-
-            {product.retail ? (
-              <div className="mt-8 rounded-2xl border border-hairline bg-surface-muted p-5">
-                <p className="font-display font-semibold text-ink-strong">
-                  {d.productPage.retailHeading}
-                </p>
-                <p className="mt-1 text-sm text-ink-muted">{d.productPage.retailBody}</p>
-                <div className="mt-4 flex flex-wrap gap-3">
-                  {product.retail.amazon ? (
-                    <ButtonLink href={product.retail.amazon} variant="ghost" size="sm" icon="arrowUpRight" external>
-                      {d.common.buyOnAmazon}
-                    </ButtonLink>
-                  ) : null}
-                  {product.retail.noon ? (
-                    <ButtonLink href={product.retail.noon} variant="ghost" size="sm" icon="arrowUpRight" external>
-                      {d.common.buyOnNoon}
-                    </ButtonLink>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
+            <p className="mt-6 text-xs text-ink-muted">{d.productPage.energyNote}</p>
           </div>
         </Shell>
       </Section>
@@ -356,14 +379,15 @@ export default async function ProductPage(
             </div>
           </div>
 
-          <Reveal className="overflow-hidden rounded-2xl border border-hairline bg-surface">
+          {/* The table brings its own grouped panels now, so no outer card. */}
+          <div>
             <SpecTable
               product={product}
               locale={typedLocale}
               dictionary={d}
               caption={`${product.name} ${product.code} — ${d.productPage.specHeading}`}
             />
-          </Reveal>
+          </div>
         </Shell>
       </Section>
 
@@ -412,15 +436,13 @@ export default async function ProductPage(
               label={d.productPage.relatedHeading}
               labels={{ previous: d.interaction.previousSlide, next: d.interaction.nextSlide }}
               slides={related.map((item) => (
-                /* Morph names stay unique: this list excludes the current and next models. */
+                /* Morph names stay unique: this list excludes the current model. */
                 <ProductCard key={item.slug} product={item} locale={typedLocale} dictionary={d} />
               ))}
             />
           </Shell>
         </Section>
       ) : null}
-
-      <NextProduct product={next} locale={typedLocale} label={d.productPage.nextModel} />
     </>
   );
 }

@@ -153,7 +153,7 @@ export function MilestoneTimeline({
 
           <span aria-hidden="true" className="mt-8 block h-1 w-40 overflow-hidden rounded-full bg-hairline-strong">
             <span
-              className="block h-full origin-left rounded-full bg-gradient-to-r from-glacier-400 to-[#9d8bff] transition-transform duration-700 ease-[var(--ease-smooth)] rtl:origin-right"
+              className="block h-full origin-left rounded-full bg-gradient-to-r from-glacier-400 to-steel-light transition-transform duration-700 ease-[var(--ease-smooth)] rtl:origin-right"
               style={{ transform: `scaleX(${(active + 1) / items.length})` }}
             />
           </span>
@@ -170,7 +170,7 @@ export function MilestoneTimeline({
         <span
           data-spine-fill
           aria-hidden="true"
-          className="absolute inset-y-0 start-6 w-px origin-top -translate-x-1/2 bg-gradient-to-b from-glacier-400 via-[#7c9dff] to-[#9d8bff] shadow-[0_0_12px_rgb(44_186_226/0.8)] rtl:translate-x-1/2"
+          className="absolute inset-y-0 start-6 w-px origin-top -translate-x-1/2 bg-gradient-to-b from-glacier-400 via-steel to-steel-light shadow-[0_0_12px_rgb(44_186_226/0.8)] rtl:translate-x-1/2"
         />
 
         {items.map((item, index) => {
@@ -190,7 +190,7 @@ export function MilestoneTimeline({
                   "absolute start-6 top-0 grid h-12 w-12 -translate-x-1/2 place-items-center rounded-full",
                   "transition-[background-color,color,transform,box-shadow] duration-500 ease-[var(--ease-smooth)] rtl:translate-x-1/2",
                   isCurrent
-                    ? "scale-110 bg-gradient-to-br from-glacier-400 to-[#7c5cff] text-navy-950 shadow-[0_0_28px_-4px_rgb(44_186_226/0.9)]"
+                    ? "scale-110 bg-gradient-to-br from-glacier-400 to-steel-light text-navy-950 shadow-[0_0_28px_-4px_rgb(44_186_226/0.9)]"
                     : "bg-surface text-glacier-600 ring-1 ring-hairline-strong",
                 )}
               >

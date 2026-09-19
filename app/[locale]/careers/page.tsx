@@ -94,8 +94,8 @@ export default async function CareersPage(props: PageProps<"/[locale]/careers">)
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent" />
-              <p className="absolute bottom-5 start-5 rounded-2xl bg-white/95 px-5 py-3 shadow-lg backdrop-blur-sm">
-                <span className="block font-display text-2xl font-bold text-ink-strong">
+              <p className="glass-panel absolute bottom-5 start-5 rounded-2xl px-5 py-3">
+                <span className="block font-display text-2xl font-bold text-white">
                   {d.careers.benefits.tenureValue}
                 </span>
                 <span className="text-xs text-ink-muted">{d.careers.benefits.tenureLabel}</span>

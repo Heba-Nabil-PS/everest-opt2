@@ -27,10 +27,10 @@ export const chrome = {
     previousImage: "الصورة السابقة",
     nextImage: "الصورة التالية",
     viewImage: "عرض الصورة {n} من {total}",
-    rotateLeft: "تدوير لليسار",
-    rotateRight: "تدوير لليمين",
-    resetView: "إعادة ضبط العرض ثلاثي الأبعاد",
-    dragToRotate: "اسحب، أو استخدم مفاتيح الأسهم، لتدوير الوحدة",
+    zoomIn: "تكبير",
+    zoomOut: "تصغير",
+    resetZoom: "إعادة ضبط التكبير",
+    closeZoom: "إغلاق التكبير",
     required: "حقل مطلوب",
     externalLink: "يُفتح في تبويب جديد",
     loading: "جارٍ التحميل",
@@ -142,7 +142,6 @@ export const chrome = {
     viewAllNews: "عرض جميع الأخبار",
     readArticle: "اقرأ الخبر كاملاً",
     talkToEngineer: "تحدّث إلى مهندس",
-    view3d: "افتح العارض ثلاثي الأبعاد",
   },
 
   common: {
@@ -260,6 +259,12 @@ export const chrome = {
     controller: "وحدة التحكّم",
     noiseLevel: "مستوى الضوضاء",
     warranty: "الضمان",
+    groups: {
+      size: "السعة والأبعاد",
+      energy: "الطاقة والإضاءة",
+      cooling: "نظام التبريد",
+      support: "الكهرباء والدعم",
+    },
   },
 
   techLabels: {

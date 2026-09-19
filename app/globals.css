@@ -853,7 +853,7 @@ html.lenis {
    Aurora glass — the site's visual language
    A page opts in by wrapping its content in `.theme-aurora` (see
    components/ui/Aurora.tsx). The ground is deep navy lit by slow drifting
-   cyan, steel and violet light; content sits on frosted glass.
+   cyan, steel and indigo light; content sits on frosted glass.
 
      .glass-panel          standard frosted panel (cards, tiles)
      .glass-panel-strong  denser panel for forms and long copy
@@ -864,12 +864,19 @@ html.lenis {
 .theme-aurora {
   --aurora-cyan: 44 186 226;
   --aurora-steel: 74 111 165;
-  --aurora-violet: 124 92 255;
-  --glass-bg: rgb(255 255 255 / 0.055);
-  --glass-bg-strong: rgb(19 18 51 / 0.62);
-  --glass-edge: rgb(255 255 255 / 0.12);
-  --glass-edge-hi: rgb(255 255 255 / 0.28);
-  --glass-blur: 22px;
+  /* Brand palette only: the counter-light is Everest navy-400, not violet. */
+  --aurora-indigo: 82 89 156;
+  /* The fill is a navy frost, not a white veil. At a few percent white a panel
+     over a photograph is barely there: the picture reads straight through and
+     tints the card its own colour. A tinted base at this weight stays
+     translucent but frosts what is behind it, so glass reads as glass on the
+     aurora ground and over photography alike. */
+  --glass-bg: rgb(18 17 48 / 0.4);
+  --glass-bg-strong: rgb(13 12 38 / 0.7);
+  /* The lit rim is the whole tell. Weak edges read as a flat translucent box. */
+  --glass-edge: rgb(255 255 255 / 0.16);
+  --glass-edge-hi: rgb(255 255 255 / 0.42);
+  --glass-blur: 30px;
 
   position: relative;
   isolation: isolate;
@@ -945,11 +952,16 @@ html:has(.theme-aurora) body {
     [role=dialog],
     .stage-light
   ) {
-  background: linear-gradient(145deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02) 60%), rgb(22 21 58 / 0.55);
-  border-color: var(--glass-edge, rgb(255 255 255 / 0.12));
+  /* The same recipe as `.glass-panel`, read from the same tokens, so a card
+     written as a plain surface is indistinguishable from one written as
+     glass. Tuning the tokens above moves every panel on the site at once. */
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.03) 55%),
+    var(--glass-bg, rgb(18 17 48 / 0.4));
+  border-color: var(--glass-edge, rgb(255 255 255 / 0.16));
   /* The lit top edge is the panels' signature. It is done with the border
      rather than an inset shadow, so a card's own hover shadow still lands. */
-  border-top-color: var(--glass-edge-hi, rgb(255 255 255 / 0.28));
+  border-top-color: var(--glass-edge-hi, rgb(255 255 255 / 0.42));
 }
 
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
@@ -959,8 +971,8 @@ html:has(.theme-aurora) body {
       .bg-surface-muted,
       .bg-ice
     ):not([role=dialog], .stage-light) {
-    -webkit-backdrop-filter: blur(var(--glass-blur, 22px)) saturate(155%);
-    backdrop-filter: blur(var(--glass-blur, 22px)) saturate(155%);
+    -webkit-backdrop-filter: blur(var(--glass-blur, 30px)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur, 30px)) saturate(180%);
   }
 }
 
@@ -970,7 +982,17 @@ html:has(.theme-aurora) body {
   background-color: var(--color-surface);
 }
 
-.theme-aurora :is(.bg-white\/60, .bg-white\/70, .bg-white\/80, .bg-white\/85, .bg-white\/90):not(.stage-light) {
+/* Every near-opaque white tint, /60 and up. Any value missing from this list
+   stays a white card while the ink tokens flip to white — invisible text. */
+.theme-aurora
+  :is(
+    .bg-white\/60,
+    .bg-white\/70,
+    .bg-white\/80,
+    .bg-white\/85,
+    .bg-white\/90,
+    .bg-white\/95
+  ):not(.stage-light) {
   background-color: rgb(255 255 255 / 0.07);
 }
 
@@ -981,10 +1003,28 @@ html:has(.theme-aurora) body {
 }
 
 /* The light frosted utility becomes the dark one. */
-.theme-aurora .glass {
-  background: linear-gradient(145deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02)), rgb(19 18 51 / 0.6);
-  border-color: rgb(255 255 255 / 0.12);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 20px 50px -20px rgb(0 0 0 / 0.6);
+/* The two older frosted utilities are pulled onto the same tokens, so `.glass`,
+   `.glass-dark` and `.glass-panel` are one material rather than three near
+   misses. Everything on the site now frosts from the variables above. */
+.theme-aurora .glass,
+.theme-aurora .glass-dark {
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.03) 55%),
+    var(--glass-bg-strong, rgb(13 12 38 / 0.7));
+  border-color: var(--glass-edge, rgb(255 255 255 / 0.16));
+  border-top-color: var(--glass-edge-hi, rgb(255 255 255 / 0.42));
+  box-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.22),
+    inset 0 -1px 0 0 rgb(255 255 255 / 0.07),
+    0 24px 60px -24px rgb(0 0 0 / 0.6);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .theme-aurora .glass,
+  .theme-aurora .glass-dark {
+    -webkit-backdrop-filter: blur(var(--glass-blur, 30px)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur, 30px)) saturate(180%);
+  }
 }
 
 .theme-aurora .bg-grid {
@@ -1013,42 +1053,59 @@ html:has(.theme-aurora) body {
   color: #fff;
 }
 
+/* `position` sits in the components layer while the rest of the panel stays
+   unlayered. The unlayered rules have to beat the light base styles, but
+   position must NOT beat a utility: a glass panel is regularly placed over a
+   photograph with `absolute`, and an unlayered `relative` would silently win
+   and drop the card back into the flow. */
+@layer components {
+  .glass-panel,
+  .glass-panel-strong,
+  .glass-chip {
+    position: relative;
+  }
+}
+
 .glass-panel,
 .glass-panel-strong,
 .glass-chip {
-  position: relative;
-  border: 1px solid var(--glass-edge, rgb(255 255 255 / 0.12));
+  border: 1px solid var(--glass-edge, rgb(255 255 255 / 0.16));
+  border-top-color: var(--glass-edge-hi, rgb(255 255 255 / 0.42));
   background:
-    linear-gradient(145deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.02) 60%),
-    var(--glass-bg, rgb(255 255 255 / 0.055));
+    linear-gradient(145deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.03) 55%),
+    var(--glass-bg, rgb(18 17 48 / 0.4));
+  /* Two inset lights: a bright specular along the top edge and a faint bounce
+     off the bottom. That pair is what makes a pane read as thick glass rather
+     than a translucent rectangle. */
   box-shadow:
-    inset 0 1px 0 0 rgb(255 255 255 / 0.14),
-    0 24px 60px -24px rgb(0 0 0 / 0.55);
+    inset 0 1px 0 0 rgb(255 255 255 / 0.22),
+    inset 0 -1px 0 0 rgb(255 255 255 / 0.07),
+    0 24px 60px -24px rgb(0 0 0 / 0.6);
 }
 
 .glass-panel-strong {
   background:
-    linear-gradient(145deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.01) 55%),
-    var(--glass-bg-strong, rgb(19 18 51 / 0.62));
+    linear-gradient(145deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.02) 55%),
+    var(--glass-bg-strong, rgb(13 12 38 / 0.7));
 }
 
 .glass-chip {
-  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.12);
+  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.18);
 }
 
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .glass-panel,
   .glass-panel-strong,
   .glass-chip {
-    -webkit-backdrop-filter: blur(var(--glass-blur, 22px)) saturate(160%);
-    backdrop-filter: blur(var(--glass-blur, 22px)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--glass-blur, 30px)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur, 30px)) saturate(180%);
   }
 }
 
 /* Phones: lighter blur keeps scrolling smooth on modest GPUs. */
 @media (max-width: 767px) {
   .theme-aurora {
-    --glass-blur: 12px;
+    --glass-blur: 18px;
   }
 }
 
@@ -1105,7 +1162,7 @@ html:has(.theme-aurora) body {
 
 /* Gradient text for display numbers and highlighted words. */
 .text-aurora {
-  background: linear-gradient(100deg, #74d7f2 0%, #2cbae2 35%, #9d8bff 100%);
+  background: linear-gradient(100deg, #74d7f2 0%, #2cbae2 45%, #6d8dbc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

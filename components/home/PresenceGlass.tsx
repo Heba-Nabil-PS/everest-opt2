@@ -32,7 +32,7 @@ export function PresenceGlass({ locale, dictionary: d }: { locale: Locale; dicti
 
         <div className="glass-panel-strong relative mt-10 overflow-hidden rounded-[2rem] p-4 lg:p-8">
           <Glow className="-end-32 -top-32 h-96 w-96" />
-          <Glow tone="violet" className="-bottom-32 -start-24 h-80 w-80" />
+          <Glow tone="indigo" className="-bottom-32 -start-24 h-80 w-80" />
           <Reveal animation="scale-in">
             <WorldMap markets={markets} locale={locale} labelledBy="presence-heading" statusLabels={d.presence.statusLabels} />
           </Reveal>

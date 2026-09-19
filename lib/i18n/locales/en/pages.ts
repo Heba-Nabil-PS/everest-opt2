@@ -185,6 +185,8 @@ export const pages = {
 
   productPage: {
     galleryHeading: "Product gallery",
+    zoomLabel: "Zoom",
+    zoomHint: "Scroll to zoom · drag to move · double-click to reset",
     overviewHeading: "Overview",
     specHeading: "Full specification",
     specNote:
@@ -200,10 +202,7 @@ export const pages = {
     retailHeading: "Buying a single unit?",
     retailBody: "This model is also listed for single-unit purchase on regional marketplaces.",
     energyNote: "Annual consumption measured over a standard 24-hour duty cycle at 25°C ambient.",
-    viewer3dHeading: "Inspect the cabinet",
-    viewer3dBody: "Rotate the unit to check the footprint, canopy and door configuration before you spec it.",
     atAGlance: "At a glance",
-    nextModel: "Next model",
     storyEyebrow: "The cabinet",
   },
 
@@ -338,6 +337,8 @@ export const pages = {
         { value: "±0.5°C", label: "Tighter shelf-temperature band", detail: "Measured at the bottom shelf through a door-opening rush" },
         { value: "Longer", label: "Compressor service life", detail: "Fewer hard starts means less mechanical and electrical stress" },
       ],
+      baselineLabel: "Fixed-speed compressor",
+      emmdLabel: "EMMD demand-matched",
       howHeading: "How it works",
       how: [
         { step: "Sense", body: "Door switches, ambient probe and evaporator sensors report continuously." },
@@ -586,6 +587,7 @@ export const pages = {
       manuals: "Manuals & spec sheets",
       certifications: "Certifications",
       faqs: "FAQs",
+      gallery: "Media gallery",
     },
     documentMeta: "{type} · {size}",
     catalogue: {

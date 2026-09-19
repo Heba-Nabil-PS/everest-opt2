@@ -29,9 +29,9 @@ export function PillarsStack({ dictionary: d }: { dictionary: Dictionary }) {
               style={{ top: `calc(8rem + ${index * 1.75}rem)` }}
             >
               <article className="glass-panel-strong glass-spot relative overflow-hidden rounded-[2rem] p-7 lg:min-h-[22rem] lg:p-10">
-                <Glow tone={index % 2 ? "violet" : "cyan"} className="-end-24 -top-24 h-72 w-72 opacity-70" />
+                <Glow tone={index % 2 ? "indigo" : "cyan"} className="-end-24 -top-24 h-72 w-72 opacity-70" />
                 <div className="flex items-start justify-between gap-6">
-                  <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-glacier-400 to-[#7c5cff] text-navy-950 shadow-[0_12px_40px_-12px_rgb(44_186_226/0.8)]">
+                  <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-glacier-400 to-steel-light text-navy-950 shadow-[0_12px_40px_-12px_rgb(44_186_226/0.8)]">
                     <Icon name={icons[index]} size={24} />
                   </span>
                   <span

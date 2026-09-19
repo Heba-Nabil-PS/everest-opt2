@@ -28,10 +28,10 @@ export const chrome = {
     previousImage: "Previous image",
     nextImage: "Next image",
     viewImage: "View image {n} of {total}",
-    rotateLeft: "Rotate left",
-    rotateRight: "Rotate right",
-    resetView: "Reset the 3D view",
-    dragToRotate: "Drag, or use the arrow keys, to rotate the unit",
+    zoomIn: "Zoom in",
+    zoomOut: "Zoom out",
+    resetZoom: "Reset the zoom",
+    closeZoom: "Close the zoom",
     required: "required",
     externalLink: "opens in a new tab",
     loading: "Loading",
@@ -144,7 +144,6 @@ export const chrome = {
     viewAllNews: "View all news",
     readArticle: "Read the full update",
     talkToEngineer: "Talk to an engineer",
-    view3d: "Open 3D viewer",
   },
 
   common: {
@@ -262,6 +261,12 @@ export const chrome = {
     controller: "Controller",
     noiseLevel: "Noise level",
     warranty: "Warranty",
+    groups: {
+      size: "Capacity & dimensions",
+      energy: "Energy & lighting",
+      cooling: "Cooling system",
+      support: "Power & support",
+    },
   },
 
   /** Technology callouts shown on each model page. */

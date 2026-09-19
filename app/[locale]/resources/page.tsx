@@ -170,23 +170,27 @@ export default async function ResourcesPage(props: PageProps<"/[locale]/resource
                   </div>
                 ),
               },
+              {
+                /* The gallery is one more thing the library holds, so it is a
+                   tab rather than a separate section repeating the same
+                   "pick a category" gesture further down the page. */
+                id: "gallery",
+                label: d.resources.tabs.gallery,
+                content: (
+                  <div id="gallery" className="scroll-mt-32">
+                    <SectionHeading
+                      as="h3"
+                      title={d.resources.gallery.heading}
+                      intro={d.resources.gallery.intro}
+                    />
+                    <div className="mt-8">
+                      <MediaGallery items={gallery} locale={typedLocale} dictionary={d} />
+                    </div>
+                  </div>
+                ),
+              },
             ]}
           />
-        </Shell>
-      </Section>
-
-      {/* Media gallery — factories, installations, product showcases, video */}
-      <Section ground="muted" id="gallery" aria-labelledby="gallery-heading">
-        <Shell>
-          <SectionHeading
-            id="gallery-heading"
-            eyebrow={d.resources.gallery.eyebrow}
-            title={d.resources.gallery.heading}
-            intro={d.resources.gallery.intro}
-          />
-          <div className="mt-10">
-            <MediaGallery items={gallery} locale={typedLocale} dictionary={d} />
-          </div>
         </Shell>
       </Section>
 

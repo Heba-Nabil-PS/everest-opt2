@@ -56,7 +56,7 @@ export function DutyCycleChart({ className }: { className?: string }) {
         <defs>
           <linearGradient id="emmd-trace" x1="0" y1="0" x2="320" y2="0" gradientUnits="userSpaceOnUse">
             <stop stopColor="var(--color-glacier-400)" />
-            <stop offset="1" stopColor="#9d8bff" />
+            <stop offset="1" stopColor="#6d8dbc" />
           </linearGradient>
           <linearGradient id="emmd-fill" x1="0" y1="0" x2="0" y2="94" gradientUnits="userSpaceOnUse">
             <stop stopColor="var(--color-glacier-400)" stopOpacity="0.22" />

@@ -116,9 +116,10 @@ export function Footer({ locale, dictionary: d }: { locale: Locale; dictionary: 
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${d.common.buyOnAmazon} — ${d.a11y.externalLink}`}
-                  className="flex h-8 w-20 items-center justify-center rounded-md bg-white/8 px-2.5 ring-1 ring-white/10 no-underline transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-white/14"
+                  className="flex h-8 w-20 items-center justify-center rounded-md bg-[#fff] px-2.5 no-underline transition-transform duration-200 hover:-translate-y-0.5"
                 >
-                  <Image src="/brand/marketplaces/amazon-white.svg" alt="" width={603} height={182} unoptimized className="h-auto w-full" />
+                  {/* The official mark: black wordmark, orange smile — so it needs a white pill, like noon's yellow one. */}
+                  <Image src="/brand/marketplaces/amazon.svg" alt="" width={603} height={182} unoptimized className="h-auto w-full" />
                 </a>
               </li>
               <li>

@@ -1,5 +1,5 @@
 import { Counter } from "@/components/motion/Counter";
-import { DutyCycleChart } from "./DutyCycleChart";
+import { DutyCycleChart } from "@/components/art/DutyCycleChart";
 import { GrowBar } from "@/components/motion/GrowBar";
 import { Reveal } from "@/components/motion/Reveal";
 import { Magnetic } from "@/components/motion/Magnetic";
@@ -31,7 +31,7 @@ export function EnergySection({ locale, dictionary: d }: { locale: Locale; dicti
           {/* The figure */}
           <Reveal animation="scale-in" className="glass-panel-strong glass-spot relative isolate flex flex-col justify-between gap-7 overflow-hidden rounded-[2rem] p-8 lg:gap-8 lg:p-10">
             <Glow className="-bottom-24 -start-16 h-80 w-80" />
-            <Glow tone="violet" className="-end-20 -top-20 h-64 w-64" />
+            <Glow tone="indigo" className="-end-20 -top-20 h-64 w-64" />
             <p className="glass-chip inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5 text-2xs font-semibold uppercase tracking-[0.22em] text-glacier-300">
               <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-glacier-400 shadow-[0_0_10px_rgb(44_186_226/0.9)]" />
               EMMD
@@ -73,7 +73,7 @@ export function EnergySection({ locale, dictionary: d }: { locale: Locale; dicti
                     value={80}
                     label="80%"
                     delay={0.35}
-                    barClassName="bg-gradient-to-r from-glacier-400 to-[#9d8bff] shadow-[0_0_20px_rgb(44_186_226/0.7)]"
+                    barClassName="bg-gradient-to-r from-glacier-400 to-steel-light shadow-[0_0_20px_rgb(44_186_226/0.7)]"
                   />
                 </dd>
               </div>

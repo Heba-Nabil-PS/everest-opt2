@@ -51,7 +51,7 @@ export function DifferentiatorsMarquee({ dictionary: d }: { dictionary: Dictiona
                     <span
                       className={cn(
                         "grid h-10 w-10 place-items-center rounded-full",
-                        index % 2 ? "bg-white/10 text-glacier-300" : "bg-gradient-to-br from-glacier-400 to-[#7c5cff] text-navy-950",
+                        index % 2 ? "bg-white/10 text-glacier-300" : "bg-gradient-to-br from-glacier-400 to-steel-light text-navy-950",
                       )}
                     >
                       <Icon name={icons[iconIndex]} size={20} />

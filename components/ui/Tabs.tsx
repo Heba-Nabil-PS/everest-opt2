@@ -38,10 +38,12 @@ export function Tabs({ items, className }: { items: TabItem[]; className?: strin
 
   return (
     <div className={className}>
+      {/* Capsules, the same shape the rest of the site uses for chips and
+          filters: frosted when idle, a lit cyan pill when selected. */}
       <div
         role="tablist"
         onKeyDown={onKeyDown}
-        className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
+        className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 py-1"
       >
         {items.map((item, index) => {
           const selected = index === active;
@@ -59,11 +61,11 @@ export function Tabs({ items, className }: { items: TabItem[]; className?: strin
               tabIndex={selected ? 0 : -1}
               onClick={() => setActive(index)}
               className={cn(
-                "min-h-11 whitespace-nowrap rounded-lg px-4 text-sm font-medium",
-                "transition-colors duration-150 ease-[var(--ease-out-soft)]",
+                "min-h-11 shrink-0 whitespace-nowrap rounded-full px-5 text-sm font-semibold",
+                "transition-[background-color,color,box-shadow] duration-200 ease-[var(--ease-out-soft)]",
                 selected
-                  ? "bg-navy-700 text-white"
-                  : "bg-white text-ink-muted hover:bg-navy-50 hover:text-ink-strong",
+                  ? "bg-glacier-400 text-navy-950 shadow-[0_8px_22px_-6px_rgb(44_186_226/0.7)]"
+                  : "glass-chip text-ink-muted hover:text-ink-strong",
               )}
             >
               {item.label}

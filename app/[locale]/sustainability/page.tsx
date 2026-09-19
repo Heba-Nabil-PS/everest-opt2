@@ -88,8 +88,8 @@ export default async function SustainabilityPage(
       </PageHero>
 
       {/* Net Zero commitment with target charts */}
-      <Section aria-labelledby="commitment-heading" className="overflow-hidden bg-[#e7f6ed]">
-        <div aria-hidden="true" className="absolute -end-32 -top-32 -z-10 h-96 w-96 rounded-full bg-energy/15 blur-3xl" />
+      <Section aria-labelledby="commitment-heading" className="overflow-hidden">
+        <div aria-hidden="true" className="absolute -end-32 -top-32 -z-10 h-96 w-96 rounded-full bg-energy/20 blur-3xl" />
         <Shell className="grid gap-12 lg:grid-cols-[1fr_1.25fr] lg:items-center">
           <div>
             <SectionHeading
@@ -100,7 +100,7 @@ export default async function SustainabilityPage(
             />
             <ul className="mt-8 flex flex-wrap gap-3">
               {s.commitment.badges.map((badge) => (
-                <li key={badge.title} className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xs ring-1 ring-energy/20">
+                <li key={badge.title} className="glass-panel flex items-center gap-3 rounded-2xl px-4 py-3">
                   <span className="grid h-10 w-10 place-items-center rounded-full bg-energy text-white">
                     <Icon name="leaf" size={20} />
                   </span>
@@ -113,7 +113,7 @@ export default async function SustainabilityPage(
             </ul>
           </div>
 
-          <div className="rounded-3xl bg-white p-6 shadow-lg ring-1 ring-energy/15 lg:p-10">
+          <div className="glass-panel rounded-3xl p-6 shadow-lg lg:p-10">
             <h3 className="text-lg">{s.commitment.chartsHeading}</h3>
             <Reveal as="ul" stagger className="mt-8 grid gap-8 sm:grid-cols-3">
               {s.commitment.charts.map((chart) => (
@@ -300,15 +300,19 @@ export default async function SustainabilityPage(
 
       <Section ground="muted" tight>
         <Shell>
-          <div className="flex flex-col items-start justify-between gap-8 rounded-3xl bg-energy p-8 text-white lg:flex-row lg:items-center lg:p-12">
+          {/* Closing band: the green stays as accent light over the navy ground,
+              rather than a flat fill that fights the rest of the page. */}
+          <div className="relative isolate flex flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl p-8 text-white shadow-xl lg:flex-row lg:items-center lg:p-12">
+            <PhotoBackdrop src="/images/esg-nature.jpg" tone="deep" position="center 60%" />
+            <div aria-hidden="true" className="absolute -start-24 -top-24 -z-10 h-80 w-80 rounded-full bg-energy/30 blur-3xl" />
+            <div aria-hidden="true" className="bg-grid-inverse absolute inset-0 -z-10 opacity-60" />
             <div>
               <h2 className="max-w-[24ch] text-3xl text-white">{s.cta.heading}</h2>
-              <p className="mt-4 max-w-[58ch] text-white/85">{s.cta.body}</p>
+              <p className="mt-4 max-w-[58ch] text-ink-inverse-muted">{s.cta.body}</p>
             </div>
             <ButtonLink
               href={path("/resources#catalogue")}
               size="lg"
-              variant="inverse"
               icon="download"
               className="shrink-0"
             >
@@ -328,13 +332,13 @@ function TargetDonut({ value, display }: { value: number; display: string }) {
   return (
     <span className="relative grid h-36 w-36 place-items-center">
       <svg aria-hidden="true" viewBox="0 0 120 120" className="absolute inset-0 h-full w-full -rotate-90">
-        <circle cx="60" cy="60" r={r} fill="none" stroke="#e7f6ed" strokeWidth="12" />
+        <circle cx="60" cy="60" r={r} fill="none" stroke="rgb(255 255 255 / 0.12)" strokeWidth="12" />
         <circle
           cx="60"
           cy="60"
           r={r}
           fill="none"
-          stroke="#1e8e4f"
+          stroke="#34d399"
           strokeWidth="12"
           strokeLinecap="round"
           strokeDasharray={`${(value / 100) * circumference} ${circumference}`}

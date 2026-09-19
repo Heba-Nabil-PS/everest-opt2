@@ -5,6 +5,7 @@ import { PhotoBackdrop } from "@/components/ui/PhotoBackdrop";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { Reveal } from "@/components/motion/Reveal";
+import { ScrollDrawLine } from "@/components/motion/ScrollDraw";
 import { ServiceForm } from "@/components/forms/ServiceForm";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/lib/data/site";
@@ -66,43 +67,56 @@ export default async function ServicesPage(props: PageProps<"/[locale]/services"
             {d.nav.services}
           </h2>
 
-          <div className="flex flex-col gap-6">
-            {d.services.items.map((item, index) => (
-              <Reveal
-                key={item.title}
-                as="article"
-                id={anchors[index] ?? slugify(item.title)}
-                className="grid scroll-mt-32 gap-8 rounded-2xl border border-hairline bg-surface p-6 lg:grid-cols-[auto_1.4fr_1fr] lg:p-8"
-              >
-                <span className="grid h-14 w-14 place-items-center rounded-xl bg-navy-700 text-glacier-300">
-                  <Icon name={serviceIcons[index]} size={24} />
-                </span>
+          {/* Five services read as a sequence, not five unrelated boxes, so a
+              rail runs the length of the list and draws itself on the way
+              down. Each card is an index marker on that rail. */}
+          <div className="relative">
+            <span aria-hidden="true" className="absolute inset-y-0 start-6 hidden w-px bg-white/10 lg:block" />
+            <ScrollDrawLine className="absolute inset-y-0 start-6 hidden w-px bg-glacier-400 lg:block" />
 
-                <div>
-                  <h3 className="text-2xl">{item.title}</h3>
-                  <p className="mt-2 font-medium text-glacier-600">{item.summary}</p>
-                  <p className="mt-4 max-w-[62ch] text-ink-muted">{item.body}</p>
-                  <ButtonLink
-                    href={item.cta === d.cta.customizeFridge ? path("/customize") : "#request-service"}
-                    variant="ghost"
-                    size="sm"
-                    icon="arrowRight"
-                    className="mt-6"
-                  >
-                    {item.cta}
-                  </ButtonLink>
-                </div>
+            <div className="flex flex-col gap-5">
+              {d.services.items.map((item, index) => (
+                <Reveal
+                  key={item.title}
+                  as="article"
+                  id={anchors[index] ?? slugify(item.title)}
+                  className="glass-panel glass-spot glass-hover group grid scroll-mt-32 gap-8 rounded-2xl p-6 lg:grid-cols-[auto_1.4fr_1fr] lg:p-8"
+                >
+                  <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-3">
+                    <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-glacier-400 to-steel text-white shadow-[0_10px_24px_-8px_rgb(44_186_226/0.7)] ring-8 ring-navy-950/40 transition-transform duration-300 ease-[var(--ease-spring)] group-hover:rotate-6 group-hover:scale-105">
+                      <Icon name={serviceIcons[index]} size={24} />
+                    </span>
+                    <span className="tabular font-display text-sm font-bold text-white/30 lg:ps-4">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
 
-                <ul className="flex flex-col gap-2 rounded-xl bg-surface-muted p-5">
-                  {item.points.map((point) => (
-                    <li key={point} className="flex items-start gap-2 text-sm">
-                      <Icon name="check" size={16} className="mt-1 shrink-0 text-glacier-600" />
-                      <span className="text-ink">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            ))}
+                  <div>
+                    <h3 className="text-2xl">{item.title}</h3>
+                    <p className="mt-2 font-medium text-glacier-300">{item.summary}</p>
+                    <p className="mt-4 max-w-[62ch] text-ink-muted">{item.body}</p>
+                    <ButtonLink
+                      href={item.cta === d.cta.customizeFridge ? path("/customize") : "#request-service"}
+                      variant="ghost"
+                      size="sm"
+                      icon="arrowRight"
+                      className="mt-6"
+                    >
+                      {item.cta}
+                    </ButtonLink>
+                  </div>
+
+                  <ul className="flex flex-col gap-2.5 rounded-xl bg-white/5 p-5 ring-1 ring-white/10">
+                    {item.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2.5 text-sm">
+                        <Icon name="check" size={16} className="mt-0.5 shrink-0 text-glacier-300" />
+                        <span className="text-ink">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </Shell>
       </Section>
@@ -121,7 +135,7 @@ export default async function ServicesPage(props: PageProps<"/[locale]/services"
             {d.services.coverage.tiers.map((tier, index) => (
               <li
                 key={tier.region}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-hairline bg-surface p-6 shadow-sm transition-[transform,box-shadow,border-color] duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:border-glacier-300 hover:shadow-xl"
+                className="glass-panel glass-spot glass-hover group relative flex h-full flex-col overflow-hidden rounded-2xl p-6"
               >
                 {/* Accent line that grows on hover */}
                 <span
@@ -129,29 +143,24 @@ export default async function ServicesPage(props: PageProps<"/[locale]/services"
                   className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-glacier-400 to-steel transition-transform duration-500 group-hover:scale-x-100 rtl:origin-right"
                 />
 
-                <div className="flex items-center justify-between gap-3">
-                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-glacier-400 to-steel text-white shadow-[0_8px_20px_-6px_rgb(44_186_226/0.6)] transition-transform duration-300 group-hover:rotate-6">
-                    <Icon name={coverageIcons[index % coverageIcons.length]} size={24} />
-                  </span>
-                  <span aria-hidden="true" className="tabular font-display text-3xl font-bold text-navy-50">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
+                <span className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-glacier-400 to-steel text-white shadow-[0_8px_20px_-6px_rgb(44_186_226/0.6)] transition-transform duration-300 group-hover:rotate-6">
+                  <Icon name={coverageIcons[index % coverageIcons.length]} size={24} />
+                </span>
 
                 <h3 className="mt-5 text-xl">{tier.region}</h3>
 
-                <dl className="mt-5 flex flex-1 flex-col gap-4 border-t border-hairline pt-5 text-sm">
+                <dl className="mt-5 flex flex-1 flex-col gap-4 border-t border-white/10 pt-5 text-sm">
                   <div>
-                    <dt className="flex items-center gap-2 text-2xs font-semibold uppercase tracking-[0.16em] text-glacier-600">
+                    <dt className="flex items-center gap-2 text-2xs font-semibold uppercase tracking-[0.16em] text-glacier-300">
                       <Icon name="clock" size={16} />
                       {d.services.coverage.responseLabel}
                     </dt>
-                    <dd className="mt-1.5 inline-flex rounded-lg bg-glacier-100 px-3 py-1.5 font-semibold text-glacier-800 ring-1 ring-glacier-200/60">
+                    <dd className="mt-1.5 inline-flex rounded-lg bg-glacier-400/15 px-3 py-1.5 font-semibold text-glacier-200 ring-1 ring-glacier-400/30">
                       {tier.response}
                     </dd>
                   </div>
                   <div>
-                    <dt className="flex items-center gap-2 text-2xs font-semibold uppercase tracking-[0.16em] text-glacier-600">
+                    <dt className="flex items-center gap-2 text-2xs font-semibold uppercase tracking-[0.16em] text-glacier-300">
                       <Icon name="box" size={16} />
                       {d.services.coverage.stockLabel}
                     </dt>

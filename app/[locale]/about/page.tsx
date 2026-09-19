@@ -6,7 +6,9 @@ import { ButtonLink } from "@/components/ui/Button";
 import { QuoteButton } from "@/components/forms/QuoteButton";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { PhotoBackdrop } from "@/components/ui/PhotoBackdrop";
+import { Glow } from "@/components/ui/Aurora";
 import { Reveal } from "@/components/motion/Reveal";
+import { TextReveal } from "@/components/motion/TextReveal";
 import { MilestoneTimeline } from "@/components/sections/MilestoneTimeline";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { directors, people } from "@/lib/data/company";
@@ -81,11 +83,17 @@ export default async function AboutPage(props: PageProps<"/[locale]/about">) {
         <Shell className="grid gap-14 lg:grid-cols-2 lg:items-center">
           <div>
             <SectionHeading id="story-heading" eyebrow={d.about.overview.eyebrow} title={d.about.story.heading} />
-            <Reveal as="div" stagger className="mt-6 flex flex-col gap-4 text-ink-muted">
+            {/* `scrub`: each paragraph lights up word by word with the scroll,
+                the same treatment the home bento gives its opening claim. Each
+                one drives its own trigger, so a plain wrapper here — a
+                staggered Reveal would fight them for opacity. */}
+            <div className="mt-6 flex flex-col gap-4 text-ink-muted">
               {d.about.story.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                <TextReveal as="p" variant="scrub" key={paragraph.slice(0, 24)}>
+                  {paragraph}
+                </TextReveal>
               ))}
-            </Reveal>
+            </div>
           </div>
 
           {/* Two-photo collage */}
@@ -152,37 +160,67 @@ export default async function AboutPage(props: PageProps<"/[locale]/about">) {
             </figcaption>
           </figure>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {/* Mission and vision as a matched pair: the same photographic card,
+              but the statement is the whole card rather than a caption at the
+              foot of it. A big outlined glyph anchors each one so the two read
+              as a set rather than two stock images with text on them. */}
+          <Reveal as="div" stagger className="mt-12 grid gap-5 md:grid-cols-2">
             {[
-              { block: d.about.mvv.mission, image: "/images/careers-team.jpg" },
-              { block: d.about.mvv.vision, image: "/images/presence-port.jpg" },
-            ].map(({ block, image }) => (
-              <div key={block.label} className="relative isolate flex min-h-72 flex-col justify-end overflow-hidden rounded-3xl p-8 text-white">
-                <PhotoBackdrop src={image} tone="card" />
-                <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-glacier-300">{block.label}</p>
-                <p className="mt-3 max-w-[46ch] font-display text-xl leading-snug">{block.body}</p>
-              </div>
+              { block: d.about.mvv.mission, image: "/images/careers-team.jpg", icon: "gauge" as IconName },
+              { block: d.about.mvv.vision, image: "/images/presence-port.jpg", icon: "globe" as IconName },
+            ].map(({ block, image, icon }) => (
+              <article
+                key={block.label}
+                className="group relative isolate flex min-h-80 flex-col justify-end overflow-hidden rounded-3xl p-8 text-white lg:p-10"
+              >
+                <PhotoBackdrop
+                  src={image}
+                  tone="deep"
+                  className="[&_img]:transition-transform [&_img]:duration-700 group-hover:[&_img]:scale-105"
+                />
+                <Glow tone="indigo" className="-end-16 -top-16 h-60 w-60 opacity-70" />
+
+                <span
+                  aria-hidden="true"
+                  className="absolute end-7 top-7 text-white/10 transition-transform duration-700 ease-[var(--ease-smooth)] group-hover:scale-110"
+                >
+                  <Icon name={icon} size={32} className="h-28 w-28" />
+                </span>
+
+                <span className="inline-flex w-fit items-center gap-2.5 rounded-full bg-white/10 px-3.5 py-1.5 text-2xs font-semibold uppercase tracking-[0.18em] text-glacier-300 ring-1 ring-white/20 backdrop-blur-sm">
+                  <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-glacier-400" />
+                  {block.label}
+                </span>
+                <p className="mt-5 max-w-[44ch] font-display text-2xl leading-snug lg:text-3xl">
+                  {block.body}
+                </p>
+              </article>
             ))}
+          </Reveal>
+
+          {/* Eight values is a lot of cards. As a numbered grid of glass tiles
+              with the index carrying the rhythm, the block scans in one pass
+              instead of reading as eight separate claims. */}
+          <div className="mt-16 flex items-center gap-4">
+            <Eyebrow inverse>{d.about.mvv.values.label}</Eyebrow>
+            <span aria-hidden="true" className="h-px flex-1 bg-white/10" />
           </div>
 
-          <p className="mt-14 text-2xs font-semibold uppercase tracking-[0.18em] text-glacier-600">
-            {d.about.mvv.values.label}
-          </p>
-          <Reveal as="ul" stagger className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Reveal as="ul" stagger className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {d.about.mvv.values.items.map((value, index) => (
               <li
                 key={value.title}
-                className="group relative overflow-hidden rounded-2xl border border-hairline bg-surface p-6 transition-[transform,border-color] duration-500 ease-[var(--ease-smooth)] hover:-translate-y-1 hover:border-glacier-300"
+                className="glass-panel glass-spot glass-hover group relative overflow-hidden rounded-2xl p-6"
               >
                 <span
                   aria-hidden="true"
-                  className="tabular absolute end-3 top-1 font-display text-6xl font-bold text-glacier-400/10"
+                  className="tabular absolute end-4 top-2 font-display text-6xl font-bold text-white/5 transition-colors duration-500 group-hover:text-glacier-400/20"
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <span
                   aria-hidden="true"
-                  className="block h-0.5 w-10 rounded-full bg-gradient-to-r from-glacier-400 to-[#9d8bff] transition-[width] duration-500 ease-[var(--ease-smooth)] group-hover:w-16"
+                  className="block h-0.5 w-10 rounded-full bg-gradient-to-r from-glacier-400 to-steel-light transition-[width] duration-500 ease-[var(--ease-smooth)] group-hover:w-16"
                 />
                 <h3 className="relative mt-5 text-lg">{value.title}</h3>
                 <p className="relative mt-2 text-sm text-ink-muted">{value.body}</p>

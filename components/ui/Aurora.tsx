@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
  */
 
 /** Localised glow behind one element, for emphasis inside a section. */
-export function Glow({ className, tone = "cyan" }: { className?: string; tone?: "cyan" | "violet" | "steel" }) {
+export function Glow({ className, tone = "cyan" }: { className?: string; tone?: "cyan" | "indigo" | "steel" }) {
   const colour = {
     cyan: "bg-[rgb(44_186_226/0.35)]",
-    violet: "bg-[rgb(124_92_255/0.3)]",
+    indigo: "bg-[rgb(82_89_156/0.42)]",
     steel: "bg-[rgb(74_111_165/0.4)]",
   }[tone];
   return <span aria-hidden="true" className={cn("pointer-events-none absolute -z-10 rounded-full blur-3xl", colour, className)} />;
