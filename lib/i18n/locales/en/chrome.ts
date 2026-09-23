@@ -30,6 +30,7 @@ export const chrome = {
     viewImage: "View image {n} of {total}",
     zoomIn: "Zoom in",
     zoomOut: "Zoom out",
+    zoomHint: "Scroll to zoom · drag to move · double-click to reset",
     resetZoom: "Reset the zoom",
     closeZoom: "Close the zoom",
     required: "required",
@@ -77,6 +78,8 @@ export const chrome = {
   nav: {
     home: "Home",
     products: "Products",
+    productsServices: "Products & Services",
+    viewProducts: "View Our Products",
     industries: "Industries",
     innovation: "R&D & Innovation",
     sustainability: "Sustainability",

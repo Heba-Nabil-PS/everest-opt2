@@ -25,7 +25,7 @@ export const home = {
         brand: "Four million coolers, 86 countries, six factories — built for brands that cannot afford a warm shelf.",
         ranges: "Chillers and freezers built to one engineering standard and backed by one after-sales network.",
         technology: "EMMD runs the compressor only as hard as the cabinet needs — up to 20% less energy.",
-        sustainability: "Absolute targets: 45% less operational carbon by 2030 and Net Zero by 2050.",
+        sustainability: "ISO 9001, 14001, 45001 and an ISO 17025 accredited laboratory — certified since 1994.",
         presence: "86 countries supplied from factories across the Middle East, Africa and Asia.",
       },
     },
@@ -73,8 +73,8 @@ export const home = {
       },
       {
         title: "Trust and credibility",
-        body: "ISO 9001, ISO 14001, ISO 45001 and OHSAS 18001 certified. Every unit is serialised, tested and traceable to its production batch for the life of the warranty.",
-        metric: "ISO 9001 · 14001 · 45001",
+        body: "ISO 9001 certified since 1994, CB certified to IEC 60335, and conforming to UAE, Saudi and GCC product marking. Every unit is serialised, tested and traceable to its production batch.",
+        metric: "ISO 9001 · CB · GCC marking",
       },
       {
         title: "Engineering and innovation",
@@ -83,8 +83,8 @@ export const home = {
       },
       {
         title: "Sustainability and responsibility",
-        body: "A 45% carbon reduction commitment by 2030 and Net Zero by 2050, supported by recyclable cabinet materials and low-GWP refrigerants already in production.",
-        metric: "Net Zero by 2050",
+        body: "Integrated environmental and occupational health and safety systems, monitored and evaluated continuously, with fair labour and business practice across our supply chain.",
+        metric: "ISO 14001 · ISO 45001",
       },
     ],
   },
@@ -118,41 +118,41 @@ export const home = {
 
   sustainability: {
     eyebrow: "Sustainability",
-    heading: "Targets our customers can put in their own ESG report",
-    body: "Everest reports against absolute reduction targets, not intensity ratios. Procurement teams under supplier-ESG mandates can cite these figures directly.",
+    heading: "Integrated systems that create value for everyone we work with",
+    body: "Everest has developed, implemented and maintains integrated systems, processes and procedures — certified, audited and evaluated continuously — to create value for our customers, employees, business partners and our society.",
     milestones: [
-      { year: "2026", label: "Baseline year audited and published", state: "done" },
-      { year: "2030", label: "45% reduction in operational carbon", state: "target" },
-      { year: "2050", label: "Net Zero across the value chain", state: "target" },
+      { year: "1994", label: "ISO 9001 certified, now to the 2015 version", state: "done" },
+      { year: "2004", label: "ISO 14001 certified, now to the 2015 version", state: "done" },
+      { year: "2018", label: "ISO 17025 accredited testing laboratory", state: "done" },
     ],
     facts: [
-      { value: "45%", label: "Carbon reduction by 2030" },
-      { value: "R290", label: "Low-GWP refrigerant in series production" },
-      { value: "95–99%", label: "Of materials used are recyclable" },
+      { value: "ISO 45001", label: "Occupational health and safety certified" },
+      { value: "CB", label: "Certified to IEC 60335-1 and 60335-2-89" },
+      { value: "MENA", label: "Only accredited cooler testing lab in the region" },
     ],
     cta: "Our Sustainability Commitments",
   },
 
   services: {
     eyebrow: "Services & after-sales",
-    heading: "The cabinet is the start of the relationship",
-    body: "A cooler that fails in a flagship outlet costs more than the cooler. Everest supports every unit it builds, in every market it supplies.",
+    heading: "The relationship does not end at the purchase",
+    body: "Customers buy the product expecting the bundle of benefits that comes with it. Everest covers the UAE directly from Sharjah, and every other territory through partners and branches equipped to the same standard.",
     items: [
       {
-        title: "Warranty that travels with the unit",
-        body: "Serial-number-based cover honoured through our regional service network, not only at the point of sale.",
+        title: "After Sales Maintenance",
+        body: "The UAE served directly from Sharjah; other territories served by business partners and branches equipped to do as much as we do locally.",
       },
       {
-        title: "Scheduled preventive maintenance",
-        body: "Planned gas, gasket, fan and controller checks timed to your outlet calendar rather than to a breakdown.",
+        title: "Mobility Service (Service Van)",
+        body: "A movable workshop carrying its own power supply — up to 3-phase — and compressed air, so remote and access-restricted sites still get attended.",
       },
       {
-        title: "Retrofit and upgrade programmes",
-        body: "LED conversions, controller upgrades and refrigerant transitions applied to units already in the field.",
+        title: "Refurbishments",
+        body: "Refurbishment of the cooler is not only restoring the cooler but restoring the success of our mutual business.",
       },
       {
-        title: "Regional technical support",
-        body: "Engineers based in the Gulf, Egypt and South Asia, with spare-part stock held in market.",
+        title: "Annual Maintenance Contract (AMC)",
+        body: "Annual service contracts covering preventive maintenance and on-call maintenance across the fleet.",
       },
     ],
     cta: "Request Service",
@@ -160,10 +160,9 @@ export const home = {
 
   presence: {
     eyebrow: "Global presence",
-    heading: "Established markets, and where we are heading next",
+    heading: "Where we operate, and where we are heading next",
     body: "Everest supplies 86 countries from factories across the Middle East, Africa and Asia — including a new mega factory in India with Varun Beverages.",
-    establishedLabel: "Established",
-    growthLabel: "Growth markets",
+    operatingLabel: "Where we operate",
     futureLabel: "Next horizon",
     cta: "Become a Distributor",
   },

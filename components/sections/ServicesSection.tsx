@@ -8,12 +8,12 @@ import { Section, SectionHeading, Shell } from "@/components/ui/Section";
 import { localePath, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n";
 
-const serviceIcons: IconName[] = ["shield", "calendar", "wrench", "users"];
-const serviceAnchors = ["warranty", "scheduled-maintenance", "upgrade-and-retrofit", "regional-technical-support"];
+const serviceIcons: IconName[] = ["wrench", "rotate", "sparkle", "calendar"];
+const serviceAnchors = ["after-sales-maintenance", "mobility-service", "refurbishments", "annual-maintenance-contract"];
 
 /**
- * Aftercare on the homepage: a technician photograph carrying the warranty
- * facts, the four service lines, and the contracted response times by region.
+ * Aftercare on the homepage: a technician photograph carrying the headline
+ * coverage, the four service lines, and the remaining coverage by territory.
  */
 export function ServicesSection({
   locale,
@@ -42,19 +42,12 @@ export function ServicesSection({
             </ImageReveal>
             <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/10 to-transparent" />
 
+            {/* Where cover comes from, in the words of the coverage table */}
             <Reveal as="dl" stagger delay={0.5} className="absolute inset-x-5 bottom-5 grid grid-cols-2 gap-3 sm:inset-x-6 sm:bottom-6">
-              {[
-                { value: "12", label: d.services.items[0].points[0] },
-                { value: "60", label: d.services.items[0].points[1] },
-              ].map((fact) => (
-                <div key={fact.label} className="glass-dark rounded-2xl p-4">
-                  <dd className="tabular font-display text-3xl font-bold text-white">
-                    {fact.value}
-                    <span className="ms-1 text-sm font-medium text-glacier-300">
-                      {locale === "ar" ? "شهراً" : "mo"}
-                    </span>
-                  </dd>
-                  <dt className="mt-1 text-xs text-white/75">{fact.label}</dt>
+              {d.services.coverage.tiers.slice(0, 2).map((tier) => (
+                <div key={tier.region} className="glass-dark rounded-2xl p-4">
+                  <dd className="font-display text-lg font-bold leading-tight text-white">{tier.region}</dd>
+                  <dt className="mt-1 text-xs text-white/75">{tier.response}</dt>
                 </div>
               ))}
             </Reveal>
@@ -95,9 +88,9 @@ export function ServicesSection({
             ))}
           </Reveal>
 
-          {/* Contracted response times */}
+          {/* The remaining coverage tiers, after the two pinned on the photo */}
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {d.services.coverage.tiers.slice(0, 2).map((tier) => (
+            {d.services.coverage.tiers.slice(2).map((tier) => (
               <li key={tier.region} className="flex items-center gap-3 rounded-xl bg-surface p-3.5 shadow-xs">
                 <Icon name="clock" size={20} className="text-glacier-600" />
                 <span className="text-sm">

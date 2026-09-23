@@ -29,6 +29,7 @@ export const chrome = {
     viewImage: "عرض الصورة {n} من {total}",
     zoomIn: "تكبير",
     zoomOut: "تصغير",
+    zoomHint: "مرّر للتكبير · اسحب للتحريك · انقر مرّتين لإعادة الضبط",
     resetZoom: "إعادة ضبط التكبير",
     closeZoom: "إغلاق التكبير",
     required: "حقل مطلوب",
@@ -75,6 +76,8 @@ export const chrome = {
   nav: {
     home: "الرئيسية",
     products: "المنتجات",
+    productsServices: "المنتجات والخدمات",
+    viewProducts: "عرض منتجاتنا",
     industries: "القطاعات",
     innovation: "البحث والتطوير",
     sustainability: "الاستدامة",

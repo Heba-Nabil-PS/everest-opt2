@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/PageHero";
-import { CategoryGrid } from "@/components/sections/CategoryGrid";
 import { Section, SectionHeading, Shell } from "@/components/ui/Section";
 import { CustomizeBand } from "@/components/sections/CustomizeBand";
 import { ProductExplorer } from "@/components/product/ProductExplorer";
@@ -47,15 +46,7 @@ export default async function ProductsPage(props: PageProps<"/[locale]/products"
         ]}
       />
 
-      <CategoryGrid
-        locale={typedLocale}
-        dictionary={d}
-        categories={categories}
-        heading={d.products.categoriesHeading}
-        ground="surface"
-      />
-
-      <Section ground="muted" aria-labelledby="all-models-heading">
+      <Section aria-labelledby="all-models-heading">
         <Shell>
           <SectionHeading
             id="all-models-heading"

@@ -13,8 +13,20 @@ import { getDictionary } from "@/lib/i18n";
 import { localePath, type Locale } from "@/lib/i18n/config";
 import { slugify } from "@/lib/utils";
 
-const serviceIcons: IconName[] = ["shield", "calendar", "wrench", "users", "sparkle"];
-/* UAE & GCC (head office), Egypt, India & Sri Lanka, distributor markets. */
+/** One icon per service, in dictionary order. */
+const serviceIcons: IconName[] = [
+  "wrench",
+  "pin",
+  "rotate",
+  "gauge",
+  "users",
+  "shield",
+  "box",
+  "layers",
+  "calendar",
+];
+
+/* UAE direct, mobility van, partner territories, dealership markets. */
 const coverageIcons: IconName[] = ["building", "pin", "globe", "users"];
 
 export async function generateMetadata(props: PageProps<"/[locale]/services">): Promise<Metadata> {
@@ -34,7 +46,17 @@ export default async function ServicesPage(props: PageProps<"/[locale]/services"
   const path = (p: string) => localePath(typedLocale, p);
 
   /* English slugs anchor both locales so a shared link works in either. */
-  const anchors = ["warranty", "scheduled-maintenance", "upgrade-and-retrofit", "regional-technical-support", "custom-design-services"];
+  const anchors = [
+    "after-sales-maintenance",
+    "mobility-service",
+    "refurbishments",
+    "pre-sales-qualification",
+    "after-sales-support",
+    "warranty-services",
+    "storage-and-distribution",
+    "spare-parts-dealership",
+    "annual-maintenance-contract",
+  ];
 
   return (
     <>
@@ -60,14 +82,32 @@ export default async function ServicesPage(props: PageProps<"/[locale]/services"
         </div>
       </PageHero>
 
+      {/* Introduction — why after-sales is part of the offering at all */}
+      <Section aria-labelledby="services-intro-heading">
+        <Shell className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-start">
+          <SectionHeading
+            id="services-intro-heading"
+            eyebrow={d.services.intro.eyebrow}
+            title={d.services.intro.heading}
+          />
+          <Reveal as="div" stagger className="flex flex-col gap-5">
+            {d.services.intro.paragraphs.map((paragraph) => (
+              <p key={paragraph} className="max-w-[68ch] text-lg text-ink-muted">
+                {paragraph}
+              </p>
+            ))}
+          </Reveal>
+        </Shell>
+      </Section>
+
       {/* Services */}
-      <Section aria-labelledby="services-list-heading">
+      <Section ground="frost" aria-labelledby="services-list-heading">
         <Shell>
           <h2 id="services-list-heading" className="sr-only">
             {d.nav.services}
           </h2>
 
-          {/* Five services read as a sequence, not five unrelated boxes, so a
+          {/* The services read as one sequence, not nine unrelated boxes, so a
               rail runs the length of the list and draws itself on the way
               down. Each card is an index marker on that rail. */}
           <div className="relative">
@@ -84,7 +124,7 @@ export default async function ServicesPage(props: PageProps<"/[locale]/services"
                 >
                   <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-3">
                     <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-glacier-400 to-steel text-white shadow-[0_10px_24px_-8px_rgb(44_186_226/0.7)] ring-8 ring-navy-950/40 transition-transform duration-300 ease-[var(--ease-spring)] group-hover:rotate-6 group-hover:scale-105">
-                      <Icon name={serviceIcons[index]} size={24} />
+                      <Icon name={serviceIcons[index % serviceIcons.length]} size={24} />
                     </span>
                     <span className="tabular font-display text-sm font-bold text-white/30 lg:ps-4">
                       {String(index + 1).padStart(2, "0")}
@@ -122,7 +162,7 @@ export default async function ServicesPage(props: PageProps<"/[locale]/services"
       </Section>
 
       {/* Coverage */}
-      <Section ground="frost" aria-labelledby="coverage-heading" className="overflow-hidden">
+      <Section aria-labelledby="coverage-heading" className="overflow-hidden">
         <div aria-hidden="true" className="bg-grid absolute inset-0 -z-10" />
         <Shell>
           <SectionHeading
@@ -173,9 +213,31 @@ export default async function ServicesPage(props: PageProps<"/[locale]/services"
         </Shell>
       </Section>
 
+      {/* After Sales Portal */}
+      <Section ground="muted" tight aria-labelledby="portal-heading">
+        <Shell>
+          <div className="relative isolate flex flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl p-8 text-white shadow-xl lg:flex-row lg:items-center lg:p-12">
+            <PhotoBackdrop src="/images/gallery-warehouse.jpg" tone="deep" position="center 55%" />
+            <div aria-hidden="true" className="bg-grid-inverse absolute inset-0 -z-10 opacity-60" />
+            <div>
+              <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-glacier-300">
+                {d.services.portal.eyebrow}
+              </p>
+              <h2 id="portal-heading" className="mt-3 max-w-[24ch] text-3xl text-white">
+                {d.services.portal.heading}
+              </h2>
+              <p className="mt-4 max-w-[58ch] text-ink-inverse-muted">{d.services.portal.body}</p>
+            </div>
+            <ButtonLink href="#request-service" size="lg" icon="arrowRight" className="shrink-0">
+              {d.services.portal.cta}
+            </ButtonLink>
+          </div>
+        </Shell>
+      </Section>
+
       {/* Request service */}
       <Section ground="deep" id="request-service" aria-labelledby="service-form-heading">
-        <PhotoBackdrop src="/images/gallery-warehouse.jpg" />
+        <PhotoBackdrop src="/images/gallery-assembly.jpg" />
         <Shell className="relative grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
           <SectionHeading
             id="service-form-heading"

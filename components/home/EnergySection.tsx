@@ -25,11 +25,11 @@ export function EnergySection({ locale, dictionary: d }: { locale: Locale; dicti
       <PhotoBackdrop src="/images/rnd-testing.jpg" className="opacity-60 [mask-image:linear-gradient(to_bottom,transparent,#000_25%,#000_75%,transparent)]" />
 
       <Shell>
-        <SectionHeading id="energy-heading" eyebrow={t.eyebrow} title={t.heading} intro={t.body} size="display" inverse />
+        <SectionHeading id="energy-heading" eyebrow={t.eyebrow} title={t.heading} intro={t.body} inverse />
 
         <div className="mt-10 grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-6">
           {/* The figure */}
-          <Reveal animation="scale-in" className="glass-panel-strong glass-spot relative isolate flex flex-col justify-between gap-7 overflow-hidden rounded-[2rem] p-8 lg:gap-8 lg:p-10">
+          <Reveal animation="scale-in" className="glass-panel-strong glass-spot relative isolate flex flex-col justify-between gap-7 overflow-hidden rounded-[1.75rem] p-7 lg:gap-8 lg:p-9">
             <Glow className="-bottom-24 -start-16 h-80 w-80" />
             <Glow tone="indigo" className="-end-20 -top-20 h-64 w-64" />
             <p className="glass-chip inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5 text-2xs font-semibold uppercase tracking-[0.22em] text-glacier-300">
@@ -43,7 +43,7 @@ export function EnergySection({ locale, dictionary: d }: { locale: Locale; dicti
                 aria-hidden="true"
                 className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(44_186_226/0.22),transparent_65%)] blur-2xl"
               />
-              <p className="font-display text-[5.25rem] font-bold leading-[0.85] tracking-[-0.04em] xs:text-[6.5rem] sm:text-[9rem] lg:text-[9.5rem]">
+              <p className="font-display text-7xl leading-none tracking-[-0.03em] lg:text-8xl">
                 <span className="ltr-inline text-aurora">
                   −<Counter value={20} locale={locale} />%
                 </span>
@@ -84,11 +84,11 @@ export function EnergySection({ locale, dictionary: d }: { locale: Locale; dicti
           <div className="flex flex-col gap-5">
             <Reveal as="ul" stagger className="grid gap-5 sm:grid-cols-2">
               {t.points.map((point, index) => (
-                <li key={point.title} className="glass-panel glass-spot glass-hover flex h-full flex-col gap-4 rounded-[1.5rem] p-6">
-                  <span className="glass-chip grid h-11 w-11 place-items-center rounded-full text-glacier-300">
-                    <Icon name={pointIcons[index]} size={20} />
+                <li key={point.title} className="glass-panel glass-spot glass-hover flex h-full flex-col gap-3 rounded-[1.5rem] p-6">
+                  <span className="glass-chip grid h-9 w-9 place-items-center rounded-full text-glacier-300">
+                    <Icon name={pointIcons[index]} size={16} />
                   </span>
-                  <span className="font-display text-lg font-bold text-white">{point.title}</span>
+                  <span className="font-display text-base font-bold text-white">{point.title}</span>
                   <span className="text-sm text-white/65">{point.body}</span>
                 </li>
               ))}

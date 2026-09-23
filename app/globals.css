@@ -976,8 +976,9 @@ html:has(.theme-aurora) body {
   }
 }
 
-/* Solid white panels turn to surface — except product photo stages, which
-   must stay white because the cut-outs are shot on white (`.stage-light`). */
+/* Solid white panels turn to surface — except grounds that must stay white
+   because what sits on them was shot or scanned on white: product cut-outs
+   and certificate documents (`.stage-light`). */
 .theme-aurora .bg-white:not(.stage-light) {
   background-color: var(--color-surface);
 }

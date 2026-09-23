@@ -473,7 +473,7 @@ function ProductNode({
         data-landscape-name
         data-duplicate={tabIndex === -1 ? "true" : undefined}
         aria-hidden="true"
-        className="pointer-events-none select-none whitespace-nowrap font-display text-[clamp(1.5rem,3.2vw,2.75rem)] font-extrabold uppercase leading-none tracking-tight text-white/[0.22] transition-colors duration-500 ease-[var(--ease-smooth)] group-hover:text-white/85"
+        className="pointer-events-none select-none whitespace-nowrap font-display text-[clamp(1.125rem,1.9vw,1.75rem)] leading-none text-white/[0.4] transition-colors duration-500 ease-[var(--ease-smooth)] group-hover:text-white/85"
       >
         {item.category}
       </span>

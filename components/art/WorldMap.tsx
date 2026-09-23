@@ -49,6 +49,7 @@ export function WorldMap({
   locale,
   statusLabels,
   factoryLabels,
+  tiers = true,
   className,
   labelledBy,
   label,
@@ -60,6 +61,9 @@ export function WorldMap({
   statusLabels: Record<Status, string>;
   /** When given, markets with a plant show it in the card and get a factory ring on the map. */
   factoryLabels?: Record<FactoryStatus, string>;
+  /** False shows every current market alike, with no established / growth tag;
+      markets not yet entered keep their "next horizon" styling and tag. */
+  tiers?: boolean;
   className?: string;
   labelledBy?: string;
   label?: string;
@@ -95,6 +99,9 @@ export function WorldMap({
       ),
     [],
   );
+
+  const tierOf = (m: Market): Status => (tiers || m.status === "future" ? m.status : "established");
+  const tagOf = (m: Market) => (tiers || m.status === "future" ? statusLabels[m.status] : null);
 
   const hub = markets.find((m) => m.country === "AE") ?? markets[0];
   const hubXY = marketXY(hub);
@@ -191,14 +198,14 @@ export function WorldMap({
             {/* Markers */}
             {markets.map((m) => {
               const p = marketXY(m);
-              const style = statusStyle[m.status];
+              const style = statusStyle[tierOf(m)];
               const isActive = m.country === active;
               return (
                 <g
                   key={m.country}
                   role="button"
                   tabIndex={0}
-                  aria-label={`${m.name[locale]} — ${statusLabels[m.status]}`}
+                  aria-label={tagOf(m) ? `${m.name[locale]} — ${tagOf(m)}` : m.name[locale]}
                   aria-pressed={isActive}
                   onMouseEnter={() => setActive(m.country)}
                   onFocus={() => setActive(m.country)}
@@ -253,9 +260,11 @@ export function WorldMap({
             <div key={active} className="anim-rise rounded-xl border border-white/15 bg-navy-950/90 p-3.5 text-start shadow-xl backdrop-blur-md">
               <div className="flex items-center justify-between gap-2">
                 <p className="font-display text-sm font-semibold text-white">{current.name[locale]}</p>
-                <span className={cn("shrink-0 rounded-full px-2 py-0.5 text-2xs font-semibold", statusStyle[current.status].pill)}>
-                  {statusLabels[current.status]}
-                </span>
+                {tagOf(current) ? (
+                  <span className={cn("shrink-0 rounded-full px-2 py-0.5 text-2xs font-semibold", statusStyle[current.status].pill)}>
+                    {tagOf(current)}
+                  </span>
+                ) : null}
               </div>
               {current.factory && factoryLabels ? (
                 <div className="mt-2 rounded-lg bg-white/[0.06] p-2 text-xs">
@@ -308,8 +317,8 @@ export function WorldMap({
                 aria-hidden="true"
                 className={cn(
                   "h-2 w-2 rounded-full",
-                  m.status === "established" && "bg-glacier-400",
-                  m.status === "growth" && "bg-glacier-200",
+                  tierOf(m) === "established" && "bg-glacier-400",
+                  tierOf(m) === "growth" && "bg-glacier-200",
                   m.status === "future" && "border border-dashed border-white/60",
                 )}
               />

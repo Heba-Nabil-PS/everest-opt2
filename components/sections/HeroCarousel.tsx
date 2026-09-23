@@ -292,7 +292,7 @@ export function HeroCarousel({ slides, labels, interval = 7000 }: HeroCarouselPr
               >
                 <Heading
                   id={index === 0 ? "hero-heading" : undefined}
-                  className="max-w-[20ch] text-[2rem] leading-[1.12] tracking-[-0.015em] text-white sm:text-5xl lg:text-[3.5rem] xl:text-6xl"
+                  className="max-w-[22ch] text-[2rem] leading-[1.12] tracking-[-0.015em] text-white sm:text-5xl xl:text-6xl"
                 >
                   {words.map((word, wordIndex) => (
                     <Fragment key={`${word}-${wordIndex}`}>

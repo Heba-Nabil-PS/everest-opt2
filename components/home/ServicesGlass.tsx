@@ -6,7 +6,7 @@ import { localePath, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n";
 import { ServicesPanels } from "./ServicesPanels";
 
-const anchors = ["warranty", "scheduled-maintenance", "upgrade-and-retrofit", "regional-technical-support"];
+const anchors = ["after-sales-maintenance", "mobility-service", "refurbishments", "annual-maintenance-contract"];
 
 /** After-sales: expanding service panels, then contracted response times as glass chips. */
 export function ServicesGlass({ locale, dictionary: d }: { locale: Locale; dictionary: Dictionary }) {

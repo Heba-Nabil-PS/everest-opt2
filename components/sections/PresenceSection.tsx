@@ -14,8 +14,7 @@ export function PresenceSection({
   dictionary: Dictionary;
 }) {
   const groups = [
-    { label: d.home.presence.establishedLabel, items: marketsByStatus("established"), dot: "bg-glacier-400" },
-    { label: d.home.presence.growthLabel, items: marketsByStatus("growth"), dot: "bg-glacier-200" },
+    { label: d.home.presence.operatingLabel, items: markets.filter((market) => market.status !== "future"), dot: "bg-glacier-400" },
     { label: d.home.presence.futureLabel, items: marketsByStatus("future"), dot: "border border-dashed border-white/60" },
   ];
 
@@ -58,6 +57,7 @@ export function PresenceSection({
               locale={locale}
               labelledBy="presence-heading"
               statusLabels={d.presence.statusLabels}
+              tiers={false}
             />
           </Reveal>
         </div>

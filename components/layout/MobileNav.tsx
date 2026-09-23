@@ -75,11 +75,19 @@ export function MobileNav({ open, onClose, locale, dictionary: d, categories }: 
     style: { transitionDelay: open ? `${180 + index * 55}ms` : "0ms" },
   });
 
-  const primary = mainNav.filter((item) => !item.hasMegaMenu);
+  /* The first item opens as an accordion — the product catalogue, or the
+     plain dropdown that replaces it — so it is drawn separately below. */
+  const leadItem = mainNav.find((item) => item.hasMegaMenu || item.menu);
+  const primary = mainNav.filter((item) => item !== leadItem);
+
+  /* Global Presence is a main item in the dropdown arrangement, so it is only
+     repeated down here when it is not already above. */
   const secondary = [
     ["/news", d.nav.news],
     ["/careers", d.nav.careers],
-    ["/global-presence", d.nav.presence],
+    ...(mainNav.some((item) => item.key === "presence")
+      ? []
+      : [["/global-presence", d.nav.presence] as const]),
     ["/resources", d.nav.resources],
     ["/industries", d.nav.industries],
     ["/customize", d.nav.customize],
@@ -146,11 +154,30 @@ export function MobileNav({ open, onClose, locale, dictionary: d, categories }: 
             <li {...rise(0)}>
               <details className="group">
                 <summary className={cn(bigLink, "cursor-pointer list-none [&::-webkit-details-marker]:hidden")}>
-                  {d.nav.products}
+                  {leadItem ? d.nav[leadItem.key] : d.nav.products}
                   <span className="grid h-10 w-10 place-items-center rounded-full border border-white/20 transition-transform duration-300 group-open:rotate-45">
                     <Icon name="plus" size={20} />
                   </span>
                 </summary>
+
+                {/* A short dropdown lists its destinations plainly; the
+                    catalogue opens as the full category grid below. */}
+                {leadItem?.menu ? (
+                  <ul className="flex flex-col gap-2 py-4">
+                    {leadItem.menu.map((sub) => (
+                      <li key={sub.key}>
+                        <Link
+                          href={path(sub.href)}
+                          onClick={onClose}
+                          className="flex min-h-14 items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 font-display text-xl font-bold text-white no-underline"
+                        >
+                          {d.nav[sub.key]}
+                          <Icon name="arrowRight" size={20} className="text-glacier-300 rtl:-scale-x-100" />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
                 <ul className="grid gap-2 py-4 sm:grid-cols-2">
                   {categories.map((category) => (
                     <li key={category.slug} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
@@ -188,6 +215,7 @@ export function MobileNav({ open, onClose, locale, dictionary: d, categories }: 
                     </Link>
                   </li>
                 </ul>
+                )}
               </details>
             </li>
 

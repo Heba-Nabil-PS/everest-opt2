@@ -139,7 +139,7 @@ export default async function LocaleLayout(props: LayoutProps<"/[locale]">) {
         {/* The motion layer: inertial wheel scroll and the pointer follower.
             Both switch themselves off for touch and reduced motion. */}
         <SmoothScroll />
-        <Cursor labels={{ view: d.interaction.cursorView, drag: d.interaction.cursorDrag }} />
+        <Cursor />
         <GlassSpotlight />
       </body>
     </html>

@@ -46,12 +46,15 @@ export function Header({ locale, dictionary: d, categories, searchEntries }: Hea
   const [condensed, setCondensed] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
+  /** Key of the main-nav item whose plain dropdown is open, if any. */
+  const [dropKey, setDropKey] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const indicatorRef = useRef<HTMLSpanElement>(null);
   const closeTimer = useRef<number | undefined>(undefined);
+  const dropTimer = useRef<number | undefined>(undefined);
 
   const path = useCallback((p: string) => localePath(locale, p), [locale]);
   const isActive = useCallback((href: string) => pathname.startsWith(path(href)), [pathname, path]);
@@ -90,6 +93,7 @@ export function Header({ locale, dictionary: d, categories, searchEntries }: Hea
   /* Any navigation closes every overlay. */
   useEffect(() => {
     setMegaOpen(false);
+    setDropKey(null);
     setMobileOpen(false);
     setSearchOpen(false);
     setHidden(false);
@@ -97,7 +101,10 @@ export function Header({ locale, dictionary: d, categories, searchEntries }: Hea
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setMegaOpen(false);
+      if (event.key === "Escape") {
+        setMegaOpen(false);
+        setDropKey(null);
+      }
       /* Ctrl/Cmd+K is the conventional shortcut for site search. */
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
@@ -143,6 +150,16 @@ export function Header({ locale, dictionary: d, categories, searchEntries }: Hea
   const scheduleCloseMega = () => {
     window.clearTimeout(closeTimer.current);
     closeTimer.current = window.setTimeout(() => setMegaOpen(false), 160);
+  };
+
+  const openDrop = (key: string) => {
+    window.clearTimeout(dropTimer.current);
+    setDropKey(key);
+  };
+
+  const scheduleCloseDrop = () => {
+    window.clearTimeout(dropTimer.current);
+    dropTimer.current = window.setTimeout(() => setDropKey(null), 160);
   };
 
   const overlay = !condensed && !megaOpen;
@@ -247,7 +264,74 @@ export function Header({ locale, dictionary: d, categories, searchEntries }: Hea
               onMouseLeave={() => moveIndicator(activeItem())}
             >
               {mainNav.map((item) =>
-                item.hasMegaMenu ? (
+                item.menu ? (
+                  /* A plain dropdown, for a main item that only gathers a
+                     couple of destinations rather than a whole catalogue. */
+                  <div
+                    key={item.key}
+                    className="relative"
+                    onMouseEnter={() => openDrop(item.key)}
+                    onMouseLeave={scheduleCloseDrop}
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={dropKey === item.key}
+                      aria-controls={`${item.key}-menu`}
+                      data-nav-active={isActive(item.href) || item.menu.some((sub) => isActive(sub.href))}
+                      onClick={() => setDropKey((key) => (key === item.key ? null : item.key))}
+                      onMouseEnter={(event) => moveIndicator(event.currentTarget)}
+                      onFocus={(event) => moveIndicator(event.currentTarget)}
+                      className={navItemClass(
+                        isActive(item.href) || item.menu.some((sub) => isActive(sub.href)),
+                      )}
+                    >
+                      {d.nav[item.key]}
+                      <Icon
+                        name="chevronDown"
+                        size={16}
+                        className={cn(
+                          "transition-transform duration-300",
+                          dropKey === item.key && "rotate-180",
+                        )}
+                      />
+                    </button>
+
+                    <ul
+                      id={`${item.key}-menu`}
+                      className={cn(
+                        /* Solid, not glass: the menu must stay legible over any hero. */
+                        "absolute start-0 top-full z-10 min-w-56 overflow-hidden rounded-xl border border-white/10 bg-navy-900 p-1.5 shadow-xl",
+                        "origin-top transition-[opacity,transform] duration-200 ease-[var(--ease-out-soft)]",
+                        dropKey === item.key
+                          ? "visible scale-100 opacity-100"
+                          : "invisible -translate-y-1 scale-95 opacity-0",
+                      )}
+                    >
+                      {item.menu.map((sub) => (
+                        <li key={sub.key}>
+                          <Link
+                            href={path(sub.href)}
+                            onClick={() => setDropKey(null)}
+                            aria-current={isActive(sub.href) ? "page" : undefined}
+                            className={cn(
+                              "flex min-h-11 items-center justify-between gap-3 rounded-lg px-3 text-sm font-medium no-underline transition-colors",
+                              isActive(sub.href)
+                                ? "bg-glacier-400/10 text-glacier-600"
+                                : "text-ink hover:bg-surface-sunken hover:text-ink-strong",
+                            )}
+                          >
+                            {d.nav[sub.key]}
+                            <Icon
+                              name="arrowRight"
+                              size={16}
+                              className="text-glacier-500 rtl:-scale-x-100"
+                            />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : item.hasMegaMenu ? (
                   /* Not positioned: the indicator measures offsets against the nav. */
                   <div key={item.key} onMouseEnter={openMega}>
                     <button

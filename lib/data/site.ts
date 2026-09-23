@@ -24,6 +24,8 @@ export const site = {
 /** Navigation is structural; labels come from the dictionary by key. */
 export type NavKey =
   | "products"
+  | "productsServices"
+  | "viewProducts"
   | "industries"
   | "innovation"
   | "sustainability"
@@ -35,22 +37,72 @@ export type NavKey =
   | "careers"
   | "presence";
 
-export const mainNav: { key: NavKey; href: string; hasMegaMenu?: boolean }[] = [
-  { key: "products", href: "/products", hasMegaMenu: true },
-  { key: "about", href: "/about" },
-  { key: "innovation", href: "/innovation" },
-  { key: "sustainability", href: "/sustainability" },
-  { key: "services", href: "/services" },
-  { key: "contact", href: "/contact" },
-];
+export interface NavItem {
+  key: NavKey;
+  href: string;
+  /** Opens the full product mega menu. */
+  hasMegaMenu?: boolean;
+  /** Opens a plain dropdown of these destinations. */
+  menu?: { key: NavKey; href: string }[];
+}
+
+/**
+ * Two arrangements of the navigation, kept side by side so the site can move
+ * between them by changing `navVariant` alone.
+ *
+ *   1 — Products opens the product mega menu, Services & Support is its own
+ *       main item, and Global Presence sits in the utility bar.
+ *   2 — Products & Services opens a two-link dropdown holding both, which
+ *       frees a main slot for Global Presence.
+ */
+const navArrangements: Record<1 | 2, { main: NavItem[]; utility: { key: NavKey; href: string }[] }> = {
+  1: {
+    main: [
+      { key: "products", href: "/products", hasMegaMenu: true },
+      { key: "about", href: "/about" },
+      { key: "innovation", href: "/innovation" },
+      { key: "sustainability", href: "/sustainability" },
+      { key: "services", href: "/services" },
+      { key: "contact", href: "/contact" },
+    ],
+    utility: [
+      { key: "news", href: "/news" },
+      { key: "careers", href: "/careers" },
+      { key: "presence", href: "/global-presence" },
+      { key: "resources", href: "/resources" },
+    ],
+  },
+  2: {
+    main: [
+      {
+        key: "productsServices",
+        href: "/products",
+        menu: [
+          { key: "viewProducts", href: "/products" },
+          { key: "services", href: "/services" },
+        ],
+      },
+      { key: "about", href: "/about" },
+      { key: "innovation", href: "/innovation" },
+      { key: "sustainability", href: "/sustainability" },
+      { key: "presence", href: "/global-presence" },
+      { key: "contact", href: "/contact" },
+    ],
+    utility: [
+      { key: "news", href: "/news" },
+      { key: "careers", href: "/careers" },
+      { key: "resources", href: "/resources" },
+    ],
+  },
+};
+
+/** Switch to 1 to restore the mega-menu arrangement. */
+export const navVariant: 1 | 2 = 2;
+
+export const mainNav = navArrangements[navVariant].main;
 
 /** Secondary destinations shown in the slim bar above the main navigation. */
-export const utilityNav: { key: NavKey; href: string }[] = [
-  { key: "news", href: "/news" },
-  { key: "careers", href: "/careers" },
-  { key: "presence", href: "/global-presence" },
-  { key: "resources", href: "/resources" },
-];
+export const utilityNav = navArrangements[navVariant].utility;
 
 /** Marketplace storefronts for single-unit buyers ("Get Everest Directly"). */
 export const marketplaces = {

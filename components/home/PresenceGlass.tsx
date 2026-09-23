@@ -9,14 +9,18 @@ import { localePath, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n";
 
 /**
- * Markets as a full-width glass map console, with the three market tiers as
- * frosted cards beneath the map.
+ * Markets as a full-width glass map console. Current markets are shown alike,
+ * without an established / growth tag, and the cards beneath the map split
+ * them only into where Everest operates today and where it is heading next.
  */
 export function PresenceGlass({ locale, dictionary: d }: { locale: Locale; dictionary: Dictionary }) {
   const p = d.home.presence;
   const groups = [
-    { label: p.establishedLabel, items: marketsByStatus("established"), dot: "bg-glacier-400 shadow-[0_0_12px_rgb(44_186_226/0.9)]" },
-    { label: p.growthLabel, items: marketsByStatus("growth"), dot: "bg-glacier-200" },
+    {
+      label: p.operatingLabel,
+      items: markets.filter((market) => market.status !== "future"),
+      dot: "bg-glacier-400 shadow-[0_0_12px_rgb(44_186_226/0.9)]",
+    },
     { label: p.futureLabel, items: marketsByStatus("future"), dot: "border border-dashed border-white/70" },
   ];
 
@@ -34,10 +38,10 @@ export function PresenceGlass({ locale, dictionary: d }: { locale: Locale; dicti
           <Glow className="-end-32 -top-32 h-96 w-96" />
           <Glow tone="indigo" className="-bottom-32 -start-24 h-80 w-80" />
           <Reveal animation="scale-in">
-            <WorldMap markets={markets} locale={locale} labelledBy="presence-heading" statusLabels={d.presence.statusLabels} />
+            <WorldMap markets={markets} locale={locale} labelledBy="presence-heading" statusLabels={d.presence.statusLabels} tiers={false} />
           </Reveal>
 
-          <Reveal as="dl" stagger className="relative mt-6 grid gap-3 md:grid-cols-3">
+          <Reveal as="dl" stagger className="relative mt-6 grid gap-3 md:grid-cols-2">
             {groups.map((group) => (
               <div key={group.label} className="glass-panel glass-hover rounded-[1.25rem] px-5 py-4">
                 <dt className="flex items-center justify-between gap-2 text-2xs font-semibold uppercase tracking-[0.16em] text-glacier-300">

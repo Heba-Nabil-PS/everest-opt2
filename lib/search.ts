@@ -81,7 +81,7 @@ export function buildSearchIndex(locale: Locale, d: Dictionary): SearchEntry[] {
     { id: "page-customize", title: d.cta.customizeFridge, detail: d.customize.hero.subline, href: path("/customize") },
     { id: "page-distributors", title: d.cta.becomeDistributor, detail: d.distributors.hero.subline, href: path("/distributors") },
     { id: "page-service", title: d.cta.requestService, detail: d.services.form.body, href: path("/services#request-service") },
-    { id: "page-warranty", title: d.footer.links.warranty, detail: d.services.items[0].summary, href: path("/services#warranty") },
+    { id: "page-warranty", title: d.footer.links.warranty, detail: d.services.items[5].summary, href: path("/services#warranty-services") },
   ].map((entry) => ({
     ...entry,
     group: "pages" as const,

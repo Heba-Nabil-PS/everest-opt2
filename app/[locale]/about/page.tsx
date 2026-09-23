@@ -11,7 +11,8 @@ import { Reveal } from "@/components/motion/Reveal";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { MilestoneTimeline } from "@/components/sections/MilestoneTimeline";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
-import { directors, people } from "@/lib/data/company";
+import { directors } from "@/lib/data/company";
+import { factories } from "@/lib/data/markets";
 import { certifications, site } from "@/lib/data/site";
 import { getDictionary } from "@/lib/i18n";
 import { localePath, type Locale } from "@/lib/i18n/config";
@@ -120,7 +121,7 @@ export default async function AboutPage(props: PageProps<"/[locale]/about">) {
                   className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-glacier-400 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 />
                 <dt className="mt-2 text-sm text-ink-muted">{stat.label}</dt>
-                <dd className="ltr-inline text-gradient font-display text-4xl font-bold lg:text-5xl">{stat.value}</dd>
+                <dd className="ltr-inline font-display text-4xl text-white">{stat.value}</dd>
               </div>
             ))}
           </Reveal>
@@ -335,46 +336,29 @@ export default async function AboutPage(props: PageProps<"/[locale]/about">) {
         </Shell>
       </Section>
 
-      {/* Our people */}
-      <Section ground="muted" aria-labelledby="people-heading">
-        <Shell className="grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:items-start">
-          <div className="lg:sticky lg:top-32">
-            <SectionHeading
-              id="people-heading"
-              eyebrow={d.about.people.eyebrow}
-              title={d.about.people.heading}
-              intro={d.about.people.body}
-            />
-            <ul className="mt-6 flex flex-col gap-3">
-              {d.about.people.points.map((point) => (
-                <li key={point} className="flex items-start gap-3 text-sm text-ink">
-                  <Icon name="check" size={20} className="shrink-0 text-glacier-600" />
-                  {point}
-                </li>
-              ))}
-            </ul>
-            <ButtonLink href={path("/careers")} className="mt-8" icon="arrowRight">
-              {d.about.people.cta}
-            </ButtonLink>
-          </div>
-
-          <Reveal as="ul" stagger className="grid grid-cols-2 gap-4 md:grid-cols-3 md:pb-8">
-            {people.map((person, index) => (
-              <li
-                key={person.id}
-                className={`relative isolate flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-2xl p-4 text-white ${index % 3 === 1 ? "md:translate-y-8" : ""}`}
-              >
-                {person.photo ? <PhotoBackdrop src={person.photo} tone="card" position="center 30%" /> : null}
-                <p className="text-xs leading-relaxed text-white/85">{person.bio[typedLocale]}</p>
-                <p className="mt-3 font-display text-sm font-semibold">{person.name[typedLocale]}</p>
-                <p className="text-2xs text-glacier-300">{person.role[typedLocale]}</p>
-              </li>
-            ))}
+      {/* Careers — a pointer to the careers page rather than a roster of
+          named staff, which would need constant upkeep. */}
+      <Section tight aria-labelledby="about-careers-heading">
+        <Shell>
+          <Reveal className="glass-panel relative grid overflow-hidden rounded-[1.75rem] md:grid-cols-[1fr_1.2fr]">
+            <div className="relative min-h-60">
+              <Image src="/images/careers-team.jpg" alt="" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
+            </div>
+            <div className="flex flex-col items-start justify-center gap-5 p-7 lg:p-10">
+              <Eyebrow inverse>{d.about.careers.eyebrow}</Eyebrow>
+              <h2 id="about-careers-heading" className="max-w-[24ch] text-2xl md:text-3xl">
+                {d.about.careers.heading}
+              </h2>
+              <p className="max-w-[52ch] text-ink-muted">{d.about.careers.body}</p>
+              <ButtonLink href={path("/careers")} icon="arrowRight">
+                {d.about.careers.cta}
+              </ButtonLink>
+            </div>
           </Reveal>
         </Shell>
       </Section>
 
-      {/* Facilities */}
+      {/* Factories */}
       <Section aria-labelledby="facilities-heading">
         <Shell>
           <SectionHeading
@@ -383,12 +367,16 @@ export default async function AboutPage(props: PageProps<"/[locale]/about">) {
             intro={d.about.facilities.intro}
           />
 
-          <Reveal as="ul" stagger className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline sm:grid-cols-2 xl:grid-cols-3">
-            {d.about.facilities.items.map((item, index) => (
-              <li key={item.title} className="flex h-full flex-col gap-2 bg-surface p-6">
-                <span className="tabular font-mono text-sm text-glacier-600">{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="text-lg">{item.title}</h3>
-                <p className="text-sm text-ink-muted">{item.body}</p>
+          <Reveal as="ul" stagger className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline sm:grid-cols-2 xl:grid-cols-3">
+            {factories.map((market) => (
+              <li key={market.country} className="flex h-full flex-col gap-1.5 bg-surface p-6">
+                <span className="flex items-center justify-between gap-3">
+                  <h3 className="text-base">{market.name[typedLocale]}</h3>
+                  <span className="text-2xs font-semibold uppercase tracking-[0.14em] text-glacier-300">
+                    {d.presence.footprint.statusLabels[market.factory!.status]}
+                  </span>
+                </span>
+                <p className="text-sm text-ink-muted">{market.factory!.role[typedLocale]}</p>
               </li>
             ))}
           </Reveal>

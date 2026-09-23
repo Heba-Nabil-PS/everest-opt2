@@ -28,22 +28,22 @@ export function PillarsStack({ dictionary: d }: { dictionary: Dictionary }) {
               className="lg:sticky lg:pb-10"
               style={{ top: `calc(8rem + ${index * 1.75}rem)` }}
             >
-              <article className="glass-panel-strong glass-spot relative overflow-hidden rounded-[2rem] p-7 lg:min-h-[22rem] lg:p-10">
+              <article className="glass-panel-strong glass-spot relative overflow-hidden rounded-[1.75rem] p-7 lg:min-h-[18rem] lg:p-9">
                 <Glow tone={index % 2 ? "indigo" : "cyan"} className="-end-24 -top-24 h-72 w-72 opacity-70" />
                 <div className="flex items-start justify-between gap-6">
-                  <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-glacier-400 to-steel-light text-navy-950 shadow-[0_12px_40px_-12px_rgb(44_186_226/0.8)]">
-                    <Icon name={icons[index]} size={24} />
+                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-glacier-400 to-steel-light text-navy-950 shadow-[0_12px_40px_-12px_rgb(44_186_226/0.8)]">
+                    <Icon name={icons[index]} size={20} />
                   </span>
                   <span
                     aria-hidden="true"
-                    className="tabular font-display text-7xl font-bold leading-none text-transparent [-webkit-text-stroke:1.5px_rgb(255_255_255/0.22)] lg:text-8xl"
+                    className="tabular font-display text-5xl leading-none text-transparent [-webkit-text-stroke:1px_rgb(255_255_255/0.2)]"
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <h3 className="mt-8 text-2xl lg:text-3xl">{pillar.title}</h3>
-                <p className="mt-4 max-w-[52ch] text-white/70 lg:text-lg">{pillar.body}</p>
-                <p className="glass-chip mt-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-glacier-200">
+                <h3 className="mt-6 text-xl lg:text-2xl">{pillar.title}</h3>
+                <p className="mt-3 max-w-[52ch] text-white/65">{pillar.body}</p>
+                <p className="glass-chip mt-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-glacier-200">
                   <Icon name="check" size={16} />
                   {pillar.metric}
                 </p>
