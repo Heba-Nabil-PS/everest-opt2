@@ -92,7 +92,7 @@ export const home = {
   technology: {
     eyebrow: "Technology & innovation",
     heading: "EMMD: the controller that pays for the cabinet",
-    body: "Everest Multi-Mode Demand control reads door activity, ambient temperature and shelf load, then runs the compressor only as hard as the cabinet actually needs. On a typical convenience-store duty cycle it returns up to 20% energy savings against a comparable fixed-speed unit — without letting product temperature drift.",
+    body: "Everest Multi-Mode Demand control reads door activity, ambient temperature and shelf load, then runs the compressor only as hard as the cabinet needs — up to 20% energy savings against a comparable fixed-speed unit, without letting product temperature drift.",
     points: [
       {
         title: "Demand-matched compressor control",

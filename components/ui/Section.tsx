@@ -94,6 +94,9 @@ interface SectionHeadingProps {
   /** Set false where the heading sits above the fold or inside an animated parent. */
   animate?: boolean;
   className?: string;
+  /** Per-section tweaks to the title or intro, merged over the defaults. */
+  titleClassName?: string;
+  introClassName?: string;
   id?: string;
 }
 
@@ -113,6 +116,8 @@ export function SectionHeading({
   size = "default",
   animate = true,
   className,
+  titleClassName,
+  introClassName,
   id,
 }: SectionHeadingProps) {
   const titleClass = cn(
@@ -121,6 +126,7 @@ export function SectionHeading({
       : "max-w-[22ch] text-3xl md:text-4xl",
     align === "center" && "max-w-[26ch]",
     inverse && "text-white",
+    titleClassName,
   );
 
   const introNode = intro ? (
@@ -128,6 +134,7 @@ export function SectionHeading({
       className={cn(
         "max-w-[62ch] text-lg",
         inverse ? "text-ink-inverse-muted" : "text-ink-muted",
+        introClassName,
       )}
     >
       {intro}

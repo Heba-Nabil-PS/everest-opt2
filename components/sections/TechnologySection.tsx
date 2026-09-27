@@ -22,13 +22,16 @@ export function TechnologySection({
     <Section ground="deep" aria-labelledby="technology-heading">
       <PhotoBackdrop src="/images/rnd-testing.jpg" />
 
-      <Shell className="relative grid gap-14 lg:grid-cols-2 lg:items-center">
+      {/* The copy column takes the larger share so the intro runs in three
+          lines on desktop rather than stacking into a tall block. */}
+      <Shell className="relative grid gap-14 lg:grid-cols-[1.5fr_1fr] lg:items-center">
         <div>
           <SectionHeading
             id="technology-heading"
             eyebrow={d.home.technology.eyebrow}
             title={d.home.technology.heading}
             intro={d.home.technology.body}
+            introClassName="max-w-none text-base"
             inverse
           />
 

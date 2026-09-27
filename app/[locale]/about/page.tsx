@@ -12,7 +12,6 @@ import { TextReveal } from "@/components/motion/TextReveal";
 import { MilestoneTimeline } from "@/components/sections/MilestoneTimeline";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { directors } from "@/lib/data/company";
-import { factories } from "@/lib/data/markets";
 import { certifications, site } from "@/lib/data/site";
 import { getDictionary } from "@/lib/i18n";
 import { localePath, type Locale } from "@/lib/i18n/config";
@@ -354,31 +353,6 @@ export default async function AboutPage(props: PageProps<"/[locale]/about">) {
                 {d.about.careers.cta}
               </ButtonLink>
             </div>
-          </Reveal>
-        </Shell>
-      </Section>
-
-      {/* Factories */}
-      <Section aria-labelledby="facilities-heading">
-        <Shell>
-          <SectionHeading
-            id="facilities-heading"
-            title={d.about.facilities.heading}
-            intro={d.about.facilities.intro}
-          />
-
-          <Reveal as="ul" stagger className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline sm:grid-cols-2 xl:grid-cols-3">
-            {factories.map((market) => (
-              <li key={market.country} className="flex h-full flex-col gap-1.5 bg-surface p-6">
-                <span className="flex items-center justify-between gap-3">
-                  <h3 className="text-base">{market.name[typedLocale]}</h3>
-                  <span className="text-2xs font-semibold uppercase tracking-[0.14em] text-glacier-300">
-                    {d.presence.footprint.statusLabels[market.factory!.status]}
-                  </span>
-                </span>
-                <p className="text-sm text-ink-muted">{market.factory!.role[typedLocale]}</p>
-              </li>
-            ))}
           </Reveal>
         </Shell>
       </Section>

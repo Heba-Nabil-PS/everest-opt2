@@ -110,7 +110,9 @@ export function InquiryForm({
           <Icon name="alert" size={20} className="mt-0.5 shrink-0 text-danger" />
           <div>
             <p className="font-medium text-danger">{d.forms.errorTitle}</p>
-            {state.message ? <p className="mt-1 text-sm text-ink">{state.message}</p> : null}
+            {/* The summary sits on a fixed pale ground in both themes, so its
+                body takes a fixed dark red rather than the theme's ink. */}
+            {state.message ? <p className="mt-1 text-sm text-[#7f1d1d]">{state.message}</p> : null}
           </div>
         </div>
       ) : null}

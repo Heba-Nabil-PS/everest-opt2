@@ -27,7 +27,7 @@ export function ProofBento({ locale, dictionary: d }: { locale: Locale; dictiona
       <Shell>
         <div className="grid auto-rows-[minmax(9rem,auto)] gap-4 md:grid-cols-2 lg:grid-cols-4">
           {/* Statement */}
-          <Reveal className={cn(tile, "flex flex-col justify-between gap-8 md:col-span-2 lg:row-span-2")}>
+          <Reveal className={cn(tile, "flex flex-col justify-center gap-5 md:col-span-2 lg:row-span-2")}>
             <div className="flex flex-col gap-2">
               <Eyebrow inverse>{d.home.discover.eyebrow}</Eyebrow>
               <h2 id="proof-heading" className="text-sm font-normal text-white/55">

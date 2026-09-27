@@ -17,6 +17,7 @@ export function Pillars({ dictionary: d }: { dictionary: Dictionary }) {
               id="pillars-heading"
               eyebrow={d.home.pillars.eyebrow}
               title={d.home.pillars.heading}
+              titleClassName="text-2xl md:text-3xl"
               intro={d.home.pillars.intro}
             />
           </div>

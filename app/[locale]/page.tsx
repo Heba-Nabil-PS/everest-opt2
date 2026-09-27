@@ -81,7 +81,13 @@ export default async function HomePage(props: PageProps<"/[locale]">) {
 
       <section aria-labelledby="ranges-heading" className="relative py-12 lg:py-16">
         <Shell>
-          <SectionHeading id="ranges-heading" title={d.home.categories.heading} size="display" inverse />
+          <SectionHeading
+            id="ranges-heading"
+            title={d.home.categories.heading}
+            size="display"
+            titleClassName="text-3xl md:text-4xl lg:text-5xl"
+            inverse
+          />
           <div className="mt-12">
             <RangeExplorer
               categories={ranges}
