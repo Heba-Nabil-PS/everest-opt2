@@ -44,12 +44,9 @@ export function PresenceGlass({ locale, dictionary: d }: { locale: Locale; dicti
           <Reveal as="dl" stagger className="relative mt-6 grid gap-3 md:grid-cols-2">
             {groups.map((group) => (
               <div key={group.label} className="glass-panel glass-hover rounded-[1.25rem] px-5 py-4">
-                <dt className="flex items-center justify-between gap-2 text-2xs font-semibold uppercase tracking-[0.16em] text-glacier-300">
-                  <span className="flex items-center gap-2">
-                    <span aria-hidden="true" className={cn("inline-block h-2.5 w-2.5 rounded-full", group.dot)} />
-                    {group.label}
-                  </span>
-                  <span className="tabular text-white/50">{group.items.length}</span>
+                <dt className="flex items-center gap-2 text-2xs font-semibold uppercase tracking-[0.16em] text-glacier-300">
+                  <span aria-hidden="true" className={cn("inline-block h-2.5 w-2.5 rounded-full", group.dot)} />
+                  {group.label}
                 </dt>
                 <dd className="mt-2 text-sm text-white/85">{group.items.map((market) => market.name[locale]).join(" · ")}</dd>
               </div>
