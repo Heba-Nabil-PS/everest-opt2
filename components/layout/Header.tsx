@@ -300,7 +300,7 @@ export function Header({ locale, dictionary: d, categories, searchEntries }: Hea
                       id={`${item.key}-menu`}
                       className={cn(
                         /* Solid, not glass: the menu must stay legible over any hero. */
-                        "absolute start-0 top-full z-10 min-w-56 overflow-hidden rounded-xl border border-white/10 bg-navy-900 p-1.5 shadow-xl",
+                        "absolute start-0 top-full z-10 min-w-72 overflow-hidden rounded-xl border border-white/10 bg-navy-900 p-1.5 shadow-xl",
                         "origin-top transition-[opacity,transform] duration-200 ease-[var(--ease-out-soft)]",
                         dropKey === item.key
                           ? "visible scale-100 opacity-100"

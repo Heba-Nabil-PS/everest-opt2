@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
 import { SectionHeading, Shell } from "@/components/ui/Section";
 import { ProofBento } from "@/components/home/ProofBento";
+import { RangeShowcase } from "@/components/home/RangeShowcase";
 import { RangeExplorer, type RangeCategory } from "@/components/home/RangeExplorer";
 import { PillarsStack } from "@/components/home/PillarsStack";
-import { DifferentiatorsMarquee } from "@/components/home/DifferentiatorsMarquee";
 import { EnergySection } from "@/components/home/EnergySection";
 import { ServicesGlass } from "@/components/home/ServicesGlass";
 import { PresenceGlass } from "@/components/home/PresenceGlass";
@@ -30,9 +30,9 @@ export async function generateMetadata(props: PageProps<"/[locale]">): Promise<M
  *
  *   Hero                    slideshow, copy on glass chips
  *   ProofBento              bento of figures around the brand statement
+ *   RangeShowcase           the two ranges as tall photographic panels
  *   RangeExplorer           range switch + draggable model cards
  *   PillarsStack            four reasons dealt as a sticky card deck
- *   DifferentiatorsMarquee  two drifting glass ribbons
  *   EnergySection           EMMD as a data poster
  *   ServicesGlass           expanding service panels
  *   PresenceGlass           map console with floating market cards
@@ -78,6 +78,7 @@ export default async function HomePage(props: PageProps<"/[locale]">) {
 
       <Hero locale={typedLocale} dictionary={d} />
       <ProofBento locale={typedLocale} dictionary={d} />
+      <RangeShowcase locale={typedLocale} dictionary={d} categories={categories} />
 
       <section aria-labelledby="ranges-heading" className="relative py-12 lg:py-16">
         <Shell>
@@ -100,8 +101,7 @@ export default async function HomePage(props: PageProps<"/[locale]">) {
         </Shell>
       </section>
 
-      <PillarsStack dictionary={d} />
-      <DifferentiatorsMarquee dictionary={d} />
+      <PillarsStack locale={typedLocale} dictionary={d} />
       <EnergySection locale={typedLocale} dictionary={d} />
       <ServicesGlass locale={typedLocale} dictionary={d} />
       <PresenceGlass locale={typedLocale} dictionary={d} />

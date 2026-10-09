@@ -5,8 +5,7 @@ export const pages = {
       stats: [
         { value: "1981", label: "Founded in Sharjah, UAE" },
         { value: "4M+", label: "Cabinets delivered" },
-        { value: "86", label: "Countries supplied" },
-        { value: "11 yrs", label: "Average production-floor tenure" },
+        { value: "86+", label: "Export markets" },
       ],
     },
     timeline: {
@@ -127,6 +126,14 @@ export const pages = {
       headline: "Built for the outlet, not the showroom.",
       subline:
         "Two ranges — chillers and freezers — in every format an outlet needs. Filter by the constraint that actually decides your spec: type, capacity, door count or energy class.",
+    },
+    customizationCard: {
+      eyebrow: "Made to order",
+      title: "Customization",
+      body: "Any design, built to your brand: wraps, canopies, glass, shelving and controls specified for your outlets.",
+      cta: "Explore customization",
+      options: ["Brand wrap", "Canopy", "Glass", "Shelving", "Controls"],
+      steps: ["Share your outlet and brand", "We engineer the cabinet", "Built in series production"],
     },
     categoriesHeading: "Choose a range",
     allModelsHeading: "Every model",
@@ -831,6 +838,19 @@ export const pages = {
       headline: "Built across three continents. Trusted in 86 countries.",
       subline:
         "A manufacturing footprint across the Middle East, Africa and Asia puts Everest production close to the brands we cool — and a certified distributor network carries it everywhere else.",
+    },
+    plants: {
+      heading: "Five plants, built over four decades",
+      upcomingLabel: "Coming next",
+      note: "Every plant is fully integrated — sheet metal, foaming, assembly and testing under one roof — with in-house teams handling delivery, installation and servicing in each market.",
+      items: [
+        { year: "1981", place: "Sharjah, UAE", role: "Group HQ and first plant" },
+        { year: "1997", place: "Syria", role: "First expansion" },
+        { year: "2003", place: "Cairo, Egypt", role: "Africa and Europe gateway" },
+        { year: "2004", place: "Riyadh, KSA", role: "Expansion and refurbishment" },
+        { year: "2006", place: "Katunayake, Sri Lanka", role: "Subcontinent and Asia Pacific market" },
+        { year: "2026", place: "India", role: "Joint venture, from Q4" },
+      ],
     },
     stats: [
       { value: 86, suffix: "", label: "Countries supplied" },

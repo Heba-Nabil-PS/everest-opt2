@@ -1,17 +1,19 @@
 import { Glow } from "@/components/ui/Aurora";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { SectionHeading, Shell } from "@/components/ui/Section";
+import { ButtonLink } from "@/components/ui/Button";
+import { localePath, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n";
 
-const icons: IconName[] = ["globe", "shield", "gauge", "leaf"];
+const icons: IconName[] = ["globe", "shield", "leaf", "wrench"];
 
 /**
  * The four renewal reasons as a deck of glass cards. On desktop each card is
  * sticky a little lower than the last, so scrolling deals them onto a pile —
  * pure CSS `position: sticky`, no scroll listeners. On phones they simply
- * stack in the flow.
+ * stack in the flow. Each card links on to the page that tells its full story.
  */
-export function PillarsStack({ dictionary: d }: { dictionary: Dictionary }) {
+export function PillarsStack({ locale, dictionary: d }: { locale: Locale; dictionary: Dictionary }) {
   const p = d.home.pillars;
 
   return (
@@ -47,6 +49,13 @@ export function PillarsStack({ dictionary: d }: { dictionary: Dictionary }) {
                   <Icon name="check" size={16} />
                   {pillar.metric}
                 </p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {pillar.links.map((link) => (
+                    <ButtonLink key={link.href} href={localePath(locale, link.href)} variant="ghost" size="sm" icon="arrowRight">
+                      {link.label}
+                    </ButtonLink>
+                  ))}
+                </div>
               </article>
             </li>
           ))}

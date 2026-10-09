@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "reac
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { ProductCard } from "./ProductCard";
+import { CustomizationCard } from "./CustomizationCard";
 import { t, type Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
 import type { Product, ProductCategory } from "@/lib/data/types";
@@ -405,6 +406,10 @@ export function ProductExplorer({
                 open === false ? "lg:grid-cols-3" : "2xl:grid-cols-3",
               )}
             >
+              {/* Customization always leads the listing. */}
+              <li className="h-full">
+                <CustomizationCard locale={locale} dictionary={d} />
+              </li>
               {visible.map((product) => (
                 <li key={product.slug} className="h-full">
                   <ProductCard product={product} locale={locale} dictionary={d} />

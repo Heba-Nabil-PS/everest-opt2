@@ -12,7 +12,7 @@ import { TextReveal } from "@/components/motion/TextReveal";
 import { MilestoneTimeline } from "@/components/sections/MilestoneTimeline";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { directors } from "@/lib/data/company";
-import { certifications, site } from "@/lib/data/site";
+import { site } from "@/lib/data/site";
 import { getDictionary } from "@/lib/i18n";
 import { localePath, type Locale } from "@/lib/i18n/config";
 
@@ -108,7 +108,7 @@ export default async function AboutPage(props: PageProps<"/[locale]/about">) {
         </Shell>
 
         <Shell>
-          <Reveal as="dl" stagger className="mt-16 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <Reveal as="dl" stagger className="mt-16 grid gap-4 sm:grid-cols-3">
             {d.about.overview.stats.map((stat) => (
               <div
                 key={stat.label}
@@ -230,42 +230,6 @@ export default async function AboutPage(props: PageProps<"/[locale]/about">) {
         </Shell>
       </Section>
 
-      {/* Certifications */}
-      <Section ground="deep" tight aria-labelledby="about-certs-heading">
-        <PhotoBackdrop src="/images/rnd-testing.jpg" />
-        <Shell className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-center">
-          <div>
-            <SectionHeading
-              id="about-certs-heading"
-              title={d.about.certifications.heading}
-              intro={d.about.certifications.intro}
-              inverse
-            />
-            <ButtonLink href={path("/resources#certifications")} className="mt-8" icon="arrowRight">
-              {d.footer.links.certifications}
-            </ButtonLink>
-          </div>
-
-          <Reveal as="ul" stagger className="grid gap-4 sm:grid-cols-2">
-            {certifications.map((cert) => (
-              <li key={cert.id} className="glass-dark flex flex-col items-center rounded-2xl p-6 text-center">
-                {/* ISO badge */}
-                <span className="grid h-24 w-24 place-items-center rounded-full border-2 border-glacier-300/70 bg-white/5 ring-8 ring-white/5">
-                  <span className="flex flex-col items-center leading-none">
-                    <span className="text-2xs font-bold tracking-[0.2em] text-glacier-300">{cert.standard.split(" ")[0]}</span>
-                    <span className="ltr-inline mt-1 font-display text-2xl font-bold text-white">
-                      {cert.standard.split(" ").slice(1).join(" ")}
-                    </span>
-                  </span>
-                </span>
-                <span className="mt-4 font-display font-semibold text-white">{cert.title[typedLocale]}</span>
-                <span className="mt-2 text-xs text-white/65">{cert.scope[typedLocale]}</span>
-              </li>
-            ))}
-          </Reveal>
-        </Shell>
-      </Section>
-
       {/* Leadership — meet the directors */}
       <Section aria-labelledby="leadership-heading">
         <Shell>
@@ -317,43 +281,6 @@ export default async function AboutPage(props: PageProps<"/[locale]/about">) {
             ))}
           </Reveal>
 
-          <div className="mt-16 rounded-2xl border border-hairline bg-surface-muted p-6 lg:p-8">
-            <h3 className="text-lg">{d.about.directors.teamHeading}</h3>
-            <ul className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-              {d.about.leadership.roles.map((person) => (
-                <li key={person.role} className="flex gap-3">
-                  <Icon name="users" size={20} className="mt-0.5 text-glacier-600" />
-                  <span>
-                    <span className="block font-medium text-ink-strong">{person.role}</span>
-                    <span className="block text-sm text-ink-muted">{person.focus}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 text-xs text-ink-muted">{d.about.leadership.contactNote}</p>
-          </div>
-        </Shell>
-      </Section>
-
-      {/* Careers — a pointer to the careers page rather than a roster of
-          named staff, which would need constant upkeep. */}
-      <Section tight aria-labelledby="about-careers-heading">
-        <Shell>
-          <Reveal className="glass-panel relative grid overflow-hidden rounded-[1.75rem] md:grid-cols-[1fr_1.2fr]">
-            <div className="relative min-h-60">
-              <Image src="/images/careers-team.jpg" alt="" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
-            </div>
-            <div className="flex flex-col items-start justify-center gap-5 p-7 lg:p-10">
-              <Eyebrow inverse>{d.about.careers.eyebrow}</Eyebrow>
-              <h2 id="about-careers-heading" className="max-w-[24ch] text-2xl md:text-3xl">
-                {d.about.careers.heading}
-              </h2>
-              <p className="max-w-[52ch] text-ink-muted">{d.about.careers.body}</p>
-              <ButtonLink href={path("/careers")} icon="arrowRight">
-                {d.about.careers.cta}
-              </ButtonLink>
-            </div>
-          </Reveal>
         </Shell>
       </Section>
 

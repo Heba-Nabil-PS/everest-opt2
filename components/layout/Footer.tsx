@@ -45,8 +45,8 @@ export function Footer({ locale, dictionary: d }: { locale: Locale; dictionary: 
       links: [
         { label: d.footer.links.brochures, href: path("/resources#brochures") },
         { label: d.footer.links.manuals, href: path("/resources#manuals") },
-        { label: d.footer.links.certifications, href: path("/resources#certifications") },
-        { label: d.footer.links.catalogue, href: path("/resources#catalogue") },
+        { label: d.footer.links.faqs, href: path("/resources#faqs") },
+        { label: d.footer.links.gallery, href: path("/resources#gallery") },
       ],
     },
   ];

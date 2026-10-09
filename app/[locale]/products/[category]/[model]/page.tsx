@@ -24,7 +24,7 @@ import {
   relatedProducts,
   subcategoryOf,
 } from "@/lib/data/products";
-import { brochureFor, manualFor, specSheetFor } from "@/lib/data/documents";
+import { brochureFor, manualFor } from "@/lib/data/documents";
 import { site } from "@/lib/data/site";
 import { getDictionary } from "@/lib/i18n";
 import { localePath, locales, type Locale } from "@/lib/i18n/config";
@@ -99,7 +99,6 @@ export default async function ProductPage(
   const months = locale === "ar" ? "شهراً" : "mo";
 
   const downloads = [
-    { label: d.cta.downloadSpecSheet, href: specSheetFor(product.slug, typedLocale), icon: "document" as IconName },
     { label: d.cta.downloadManual, href: manualFor(product.slug, typedLocale), icon: "document" as IconName },
     { label: d.cta.downloadBrochure, href: brochureFor(product.categorySlug, typedLocale), icon: "document" as IconName },
   ];
@@ -221,15 +220,6 @@ export default async function ProductPage(
                     {d.cta.requestQuote}
                   </ButtonLink>
                 </Magnetic>
-                <ButtonLink
-                  href={specSheetFor(product.slug, typedLocale)}
-                  size="lg"
-                  variant="inverse"
-                  icon="download"
-                  external
-                >
-                  {d.cta.downloadSpecSheet}
-                </ButtonLink>
               </div>
 
               {product.retail ? (
@@ -364,6 +354,9 @@ export default async function ProductPage(
             <SectionHeading id="spec-heading" title={d.productPage.specHeading} />
             <p className="mt-5 max-w-[46ch] text-sm text-ink-muted">{d.productPage.specNote}</p>
             <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href="#request-a-quote" size="sm" icon="arrowRight">
+                {d.cta.requestQuote}
+              </ButtonLink>
               {downloads.map((download) => (
                 <ButtonLink
                   key={download.label}

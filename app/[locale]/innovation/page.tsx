@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { PageHero } from "@/components/sections/PageHero";
-import { Eyebrow, Section, SectionHeading, Shell } from "@/components/ui/Section";
+import { Section, SectionHeading, Shell } from "@/components/ui/Section";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { PhotoBackdrop } from "@/components/ui/PhotoBackdrop";
@@ -10,13 +10,10 @@ import { TextReveal } from "@/components/motion/TextReveal";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { GrowBar } from "@/components/motion/GrowBar";
 import { Glow } from "@/components/ui/Aurora";
-import { Counter } from "@/components/motion/Counter";
-import { DutyCycleChart } from "@/components/art/DutyCycleChart";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { certifications, site } from "@/lib/data/site";
 import { getDictionary } from "@/lib/i18n";
 import { localePath, type Locale } from "@/lib/i18n/config";
-import { cn } from "@/lib/utils";
 
 const capabilityIcons: IconName[] = ["gauge", "cube", "temperature", "rotate", "bolt", "leaf"];
 const testIcons: IconName[] = ["temperature", "rotate", "bolt", "gauge", "snow", "box"];
@@ -101,66 +98,6 @@ export default async function InnovationPage(props: PageProps<"/[locale]/innovat
           </div>
         </Shell>
 
-        {/* EMMD, the technology this R&D function is known for, sits inside
-            the overview rather than in a section of its own: the claim, how
-            it works, and the duty cycle drawn twice as the evidence. */}
-        <Shell className="mt-20 grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
-          <div>
-            <Eyebrow>{r.emmd.eyebrow}</Eyebrow>
-            <h3 id="emmd-heading" className="mt-3 max-w-[36ch] text-2xl font-normal md:text-3xl">
-              {r.emmd.heading}
-            </h3>
-            <p className="mt-4 max-w-[58ch] text-ink-muted">{r.emmd.body}</p>
-
-            <Reveal as="ol" stagger aria-label={r.emmd.howHeading} className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
-              {r.emmd.how.map((step, index) => (
-                <li key={step.step} className="flex gap-3">
-                  <span className="tabular pt-0.5 font-mono text-xs text-glacier-300">{String(index + 1).padStart(2, "0")}</span>
-                  <span>
-                    <span className="block font-semibold text-ink-strong">{step.step}</span>
-                    <span className="mt-1 block text-sm text-ink-muted">{step.body}</span>
-                  </span>
-                </li>
-              ))}
-            </Reveal>
-          </div>
-
-          <Reveal
-            animation="scale-in"
-            className="glass-panel-strong glass-spot relative isolate flex flex-col gap-6 overflow-hidden rounded-[1.75rem] p-7 lg:p-8"
-          >
-            <Glow className="-bottom-24 -start-16 h-72 w-72" />
-
-            <div className="flex items-end justify-between gap-4">
-              <p className="font-display text-5xl leading-none tracking-[-0.02em]">
-                <span className="ltr-inline text-white">
-                  −<Counter value={20} locale={typedLocale} />
-                  <span className="ms-0.5 align-top text-[0.5em] text-glacier-300">%</span>
-                </span>
-              </p>
-              <p className="glass-chip inline-flex w-fit items-center gap-2 rounded-full px-3 py-1.5 text-2xs font-semibold uppercase tracking-[0.22em] text-glacier-300">
-                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-glacier-400" />
-                EMMD
-              </p>
-            </div>
-
-            <DutyCycleChart className="-mx-1" />
-
-            {/* The traces carry no labels of their own, so the legend names
-                them in the same two colours. */}
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
-              {[
-                { label: r.emmd.baselineLabel, swatch: "bg-white/35" },
-                { label: r.emmd.emmdLabel, swatch: "bg-gradient-to-r from-glacier-400 to-steel-light" },
-              ].map((item) => (
-                <li key={item.label} className="flex items-center gap-2 text-ink-muted">
-                  <span aria-hidden="true" className={cn("h-0.5 w-6 rounded-full", item.swatch)} />
-                  {item.label}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </Shell>
       </Section>
 
       {/* Innovation approach */}

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/PageHero";
 import { Section, SectionHeading, Shell } from "@/components/ui/Section";
-import { ButtonLink } from "@/components/ui/Button";
-import { Icon, type IconName } from "@/components/ui/Icon";
+import { type IconName } from "@/components/ui/Icon";
 import { PhotoBackdrop } from "@/components/ui/PhotoBackdrop";
 import { Reveal } from "@/components/motion/Reveal";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
@@ -39,8 +38,6 @@ const structureCertificates: Record<number, string> = {
   3: "/images/certifications/iso-45001.webp",
   5: "/images/certifications/iso-17025.webp",
 };
-
-const certificationIcons: IconName[] = ["star", "leaf", "users", "gauge", "shield", "document"];
 
 export async function generateMetadata(
   props: PageProps<"/[locale]/sustainability">,
@@ -110,46 +107,6 @@ export default async function SustainabilityPage(
         </Shell>
       </Section>
 
-      {/* Certifications and accreditations */}
-      <Section tight ground="frost" aria-labelledby="certifications-heading" className="overflow-hidden">
-        <div aria-hidden="true" className="bg-grid absolute inset-0 -z-10" />
-        <Shell>
-          <SectionHeading
-            id="certifications-heading"
-            title={s.certifications.heading}
-            intro={s.certifications.intro}
-            align="center"
-            className="mx-auto"
-          />
-
-          {/* A compact ledger of what Everest holds. The documents themselves
-              live with the structure they evidence, in the explorer below. */}
-          <Reveal as="ul" stagger className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {s.certifications.items.map((item, index) => (
-              <li
-                key={item.code}
-                className="glass-panel glass-spot glass-hover group relative flex h-full items-start gap-4 overflow-hidden rounded-2xl p-5"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-glacier-400 to-steel transition-transform duration-500 group-hover:scale-x-100 rtl:origin-right"
-                />
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-glacier-400 to-steel text-white shadow-[0_8px_20px_-6px_rgb(44_186_226/0.6)] transition-transform duration-300 group-hover:rotate-6">
-                  <Icon name={certificationIcons[index % certificationIcons.length]} size={24} />
-                </span>
-                <span className="min-w-0">
-                  <span className="ltr-inline block font-display text-lg font-bold text-ink-strong">
-                    {item.code}
-                  </span>
-                  <span className="mt-0.5 block text-sm font-medium text-glacier-300">{item.label}</span>
-                  <span className="mt-1.5 block text-sm text-ink-muted">{item.detail}</span>
-                </span>
-              </li>
-            ))}
-          </Reveal>
-        </Shell>
-      </Section>
-
       {/* The eight core structures */}
       <Section tight aria-labelledby="pillars-heading">
         <Shell>
@@ -199,29 +156,6 @@ export default async function SustainabilityPage(
         </Shell>
       </Section>
 
-      <Section ground="muted" tight>
-        <Shell>
-          {/* Closing band: the green stays as accent light over the navy ground,
-              rather than a flat fill that fights the rest of the page. */}
-          <div className="relative isolate flex flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl p-8 text-white shadow-xl lg:flex-row lg:items-center lg:p-12">
-            <PhotoBackdrop src="/images/esg-nature.jpg" tone="deep" position="center 60%" />
-            <div aria-hidden="true" className="absolute -start-24 -top-24 -z-10 h-80 w-80 rounded-full bg-energy/30 blur-3xl" />
-            <div aria-hidden="true" className="bg-grid-inverse absolute inset-0 -z-10 opacity-60" />
-            <div>
-              <h2 className="max-w-[24ch] text-3xl text-white">{s.cta.heading}</h2>
-              <p className="mt-4 max-w-[58ch] text-ink-inverse-muted">{s.cta.body}</p>
-            </div>
-            <ButtonLink
-              href={path("/resources#certifications")}
-              size="lg"
-              icon="download"
-              className="shrink-0"
-            >
-              {s.cta.primary}
-            </ButtonLink>
-          </div>
-        </Shell>
-      </Section>
     </>
   );
 }

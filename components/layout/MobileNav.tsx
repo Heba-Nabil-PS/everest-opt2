@@ -84,14 +84,11 @@ export function MobileNav({ open, onClose, locale, dictionary: d, categories }: 
      repeated down here when it is not already above. */
   const secondary = [
     ["/news", d.nav.news],
-    ["/careers", d.nav.careers],
     ...(mainNav.some((item) => item.key === "presence")
       ? []
       : [["/global-presence", d.nav.presence] as const]),
-    ["/resources", d.nav.resources],
     ["/industries", d.nav.industries],
     ["/customize", d.nav.customize],
-    ["/distributors", d.nav.distributors],
   ] as const;
 
   const bigLink =

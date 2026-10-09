@@ -4,9 +4,10 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Eyebrow, Section, SectionHeading, Shell } from "@/components/ui/Section";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { Glow } from "@/components/ui/Aurora";
 import { Reveal } from "@/components/motion/Reveal";
-import { Counter } from "@/components/motion/Counter";
 import { WorldMap } from "@/components/art/WorldMap";
+import { PlantTimeline } from "@/components/sections/PlantTimeline";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { factories, markets, marketsByStatus } from "@/lib/data/markets";
 import type { FactoryStatus } from "@/lib/data/types";
@@ -14,9 +15,6 @@ import { site } from "@/lib/data/site";
 import { getDictionary } from "@/lib/i18n";
 import { localePath, type Locale } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
-
-/** One icon per headline figure, in dictionary order. */
-const statIcons: IconName[] = ["globe", "factory", "box", "gauge", "users", "star"];
 
 /** Site photography per factory card, in data order (UAE, Egypt, KSA, Sri Lanka, India, Syria). */
 const factoryImages = [
@@ -94,34 +92,16 @@ export default async function PresencePage(props: PageProps<"/[locale]/global-pr
         <div aria-hidden="true" className="h-16 lg:h-20" />
       </PageHero>
 
-      {/* Group at a glance — a floating panel that bridges hero and map */}
-      <section aria-label={p.hero.eyebrow} className="relative z-10 -mb-28 -mt-20 lg:-mt-24">
+      {/* The plants in the order they opened — a floating panel that bridges
+          hero and map. The last stop is still to come, so it is lit. */}
+      <section aria-labelledby="plants-heading" className="relative z-10 -mb-28 -mt-20 lg:-mt-24">
         <Shell>
-          <div className="relative isolate overflow-hidden rounded-3xl bg-surface shadow-2xl ring-1 ring-hairline">
-            <div aria-hidden="true" className="bg-grid pointer-events-none absolute inset-0 -z-10 opacity-50" />
-            <Reveal as="dl" stagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
-              {p.stats.map((stat, index) => (
-                <div
-                  key={stat.label}
-                  className="group relative flex flex-col-reverse gap-1 p-5 transition-colors duration-300 hover:bg-ice/70 lg:p-7"
-                >
-                  <dt className="text-xs leading-snug text-ink-muted lg:text-sm">{stat.label}</dt>
-                  <dd className="font-display text-3xl font-bold leading-none lg:text-4xl">
-                    <span className="bg-gradient-to-br from-navy-700 to-glacier-500 bg-clip-text text-transparent">
-                      <Counter value={stat.value} suffix={stat.suffix} locale={typedLocale} />
-                    </span>
-                  </dd>
-                  <span className="mb-3 grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-glacier-400 to-steel text-white shadow-[0_8px_18px_-8px_rgb(44_186_226/0.7)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-6">
-                    <Icon name={statIcons[index % statIcons.length]} size={20} />
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-glacier-400 to-steel transition-transform duration-500 group-hover:scale-x-100 rtl:origin-right"
-                  />
-                </div>
-              ))}
-            </Reveal>
-          </div>
+          <PlantTimeline
+            heading={p.plants.heading}
+            note={p.plants.note}
+            upcomingLabel={p.plants.upcomingLabel}
+            items={p.plants.items}
+          />
         </Shell>
       </section>
 
@@ -456,52 +436,79 @@ export default async function PresencePage(props: PageProps<"/[locale]/global-pr
         </Shell>
       </Section>
 
-      {/* Why we build where we build + distributor CTA */}
-      <Section aria-labelledby="expansion-heading" className="overflow-hidden bg-gradient-to-br from-glacier-600 via-steel to-navy-800 text-white">
-        <div aria-hidden="true" className="bg-grid pointer-events-none absolute inset-0 -z-10 opacity-10" />
-        <div aria-hidden="true" className="absolute -start-24 -top-24 -z-10 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
+      {/* Why we build where we build + distributor CTA. Deep navy lit by two
+          slow glows, so it belongs to the same night as the rest of the page. */}
+      <Section ground="deep" aria-labelledby="expansion-heading" className="overflow-hidden">
+        <div aria-hidden="true" className="bg-grid-inverse pointer-events-none absolute inset-0 -z-10 opacity-40" />
+        <div aria-hidden="true" className="aurora-blob -start-40 -top-40 -z-10 h-[30rem] w-[30rem] bg-glacier-500/25" />
+        <div aria-hidden="true" className="aurora-blob -bottom-48 -end-32 -z-10 h-[34rem] w-[34rem] bg-[rgb(82_89_156/0.35)] [animation-delay:-12s]" />
         <Shell>
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
             <div>
               <Eyebrow inverse>{p.expansion.eyebrow}</Eyebrow>
-              <h2 id="expansion-heading" className="mt-4 max-w-[18ch] text-4xl text-white md:text-5xl">
+              <h2 id="expansion-heading" className="mt-4 max-w-[16ch] text-4xl text-white md:text-5xl lg:text-6xl">
                 {p.expansion.heading}
               </h2>
-              <p className="mt-5 max-w-[58ch] text-lg text-white/85">{p.expansion.body}</p>
+              <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-white/75">{p.expansion.body}</p>
             </div>
 
-            <Reveal as="ul" stagger className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+            {/* The Reveal animates each list item; the card inside owns the
+                hover lift, so the two transforms never fight. */}
+            <Reveal as="ul" stagger animation="blur-up" className="grid gap-4">
               {p.expansion.points.map((point, index) => (
-                <li
-                  key={point.title}
-                  className="flex items-center gap-4 rounded-2xl border border-white/15 bg-navy-950/25 p-5 backdrop-blur-sm"
-                >
-                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white text-glacier-700">
-                    <Icon name={conditionIcons[index % conditionIcons.length]} size={24} />
-                  </span>
-                  <span>
-                    <span className="block font-display text-lg font-semibold text-white">{point.title}</span>
-                    <span className="block text-sm text-white/75">{point.body}</span>
-                  </span>
+                <li key={point.title}>
+                  <div className="glass-panel glass-spot glass-hover group relative isolate flex items-center gap-5 overflow-hidden rounded-[1.5rem] p-5 lg:p-6">
+                    <Glow
+                      tone={index % 2 ? "indigo" : "cyan"}
+                      className="-end-16 -top-16 h-44 w-44 opacity-40 transition-opacity duration-500 group-hover:opacity-90"
+                    />
+                    {/* A light that runs down the start edge as the card is picked out. */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-y-0 start-0 w-px origin-top scale-y-0 bg-gradient-to-b from-transparent via-glacier-300 to-transparent transition-transform duration-700 ease-[var(--ease-smooth)] group-hover:scale-y-100"
+                    />
+                    <span aria-hidden="true" className="relative grid h-14 w-14 shrink-0 place-items-center">
+                      <span
+                        className="stat-ring absolute inset-0 rounded-2xl border border-glacier-300/50"
+                        style={{ animationDelay: `${index * 0.8}s` }}
+                      />
+                      <span
+                        className="animate-float relative grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-glacier-400 to-steel-light text-navy-950 shadow-[0_12px_32px_-10px_rgb(44_186_226/0.85)] transition-transform duration-500 ease-[var(--ease-smooth)] group-hover:rotate-6 group-hover:scale-110"
+                        style={{ animationDelay: `${-index * 1.3}s` }}
+                      >
+                        <Icon name={conditionIcons[index % conditionIcons.length]} size={24} />
+                      </span>
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block font-display text-xl font-semibold text-white lg:text-2xl">{point.title}</span>
+                      <span className="mt-1 block text-sm text-white/65">{point.body}</span>
+                    </span>
+                  </div>
                 </li>
               ))}
             </Reveal>
           </div>
 
-          <div className="mt-14 flex flex-col items-start justify-between gap-6 rounded-3xl bg-white p-8 text-ink shadow-2xl lg:flex-row lg:items-center lg:p-10">
-            <div className="flex items-start gap-5">
-              <span className="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl bg-deep text-glacier-300 sm:grid">
-                <Icon name="globe" size={24} />
-              </span>
-              <div>
-                <h2 className="text-2xl md:text-3xl">{p.cta.heading}</h2>
-                <p className="mt-2 max-w-[58ch] text-ink-muted">{p.cta.body}</p>
+          <Reveal className="mt-16">
+            <div className="custom-card relative isolate flex flex-col items-start justify-between gap-6 overflow-hidden rounded-[1.75rem] p-7 lg:flex-row lg:items-center lg:p-10">
+              <Glow className="-start-20 -top-24 h-64 w-64 opacity-60" />
+              <div className="flex items-start gap-5">
+                <span aria-hidden="true" className="relative hidden h-14 w-14 shrink-0 place-items-center sm:grid">
+                  <span className="stat-ring absolute inset-0 rounded-2xl border border-glacier-300/60" />
+                  <span className="grid h-14 w-14 place-items-center rounded-2xl bg-glacier-400 text-navy-950">
+                    <Icon name="globe" size={24} />
+                  </span>
+                </span>
+                <div>
+                  <h2 className="text-2xl text-white md:text-3xl">{p.cta.heading}</h2>
+                  <p className="mt-2 max-w-[58ch] text-white/70">{p.cta.body}</p>
+                </div>
               </div>
+              <ButtonLink href={path("/distributors")} size="lg" icon="arrowRight" className="shrink-0">
+                {p.cta.primary}
+              </ButtonLink>
             </div>
-            <ButtonLink href={path("/distributors")} size="lg" icon="arrowRight" className="shrink-0">
-              {p.cta.primary}
-            </ButtonLink>
-          </div>
+          </Reveal>
         </Shell>
       </Section>
     </>

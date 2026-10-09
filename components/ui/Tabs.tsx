@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export interface TabItem {
@@ -11,12 +11,50 @@ export interface TabItem {
 
 /**
  * ARIA tabs with roving focus: arrow keys move between tabs, Home/End jump to
- * the ends, and only the active tab is in the tab order.
+ * the ends, and only the active tab is in the tab order. A URL hash matching a
+ * tab id (e.g. /resources#manuals) opens that tab, on load and from in-page links.
  */
 export function Tabs({ items, className }: { items: TabItem[]; className?: string }) {
   const [active, setActive] = useState(0);
   const baseId = useId();
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const ids = items.map((item) => item.id).join(",");
+
+  useEffect(() => {
+    const tabIds = ids.split(",");
+
+    function openFromHash(hash: string) {
+      const index = tabIds.indexOf(decodeURIComponent(hash.replace(/^#/, "")));
+      if (index === -1) return false;
+      setActive(index);
+      // Wait for the panel to unhide before scrolling to it.
+      requestAnimationFrame(() => rootRef.current?.scrollIntoView({ block: "start" }));
+      return true;
+    }
+
+    openFromHash(window.location.hash);
+
+    const onHashChange = () => openFromHash(window.location.hash);
+
+    // Next's <Link> changes the hash through pushState, which fires no
+    // hashchange, so same-page links (the footer) are caught on click.
+    function onClick(event: MouseEvent) {
+      const anchor = (event.target as Element | null)?.closest?.("a[href*='#']");
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+      if (anchor.pathname !== window.location.pathname) return;
+      if (!openFromHash(anchor.hash)) return;
+      event.preventDefault();
+      history.replaceState(history.state, "", anchor.hash);
+    }
+
+    window.addEventListener("hashchange", onHashChange);
+    document.addEventListener("click", onClick, true);
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+      document.removeEventListener("click", onClick, true);
+    };
+  }, [ids]);
 
   function onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     const rtl = document.documentElement.dir === "rtl";
@@ -37,7 +75,7 @@ export function Tabs({ items, className }: { items: TabItem[]; className?: strin
   }
 
   return (
-    <div className={className}>
+    <div ref={rootRef} className={cn("scroll-mt-32", className)}>
       {/* Capsules, the same shape the rest of the site uses for chips and
           filters: frosted when idle, a lit cyan pill when selected. */}
       <div

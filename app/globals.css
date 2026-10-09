@@ -1135,6 +1135,94 @@ html:has(.theme-aurora) body {
   opacity: 1;
 }
 
+/* A ring that pulses out from an icon (plant timeline, Global Presence cards). */
+.stat-ring {
+  animation: stat-ring 3.6s var(--ease-out-soft) infinite;
+}
+
+/* Customization card: a deep panel whose border carries a slowly rotating
+   band of cyan light, so it reads as a service, not another model. */
+@property --card-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.custom-card {
+  background:
+    linear-gradient(160deg, rgb(26 36 74), rgb(12 16 38)) padding-box,
+    conic-gradient(
+        from var(--card-angle),
+        rgb(44 186 226 / 0.15) 0deg,
+        rgb(116 215 242 / 0.95) 60deg,
+        rgb(44 186 226 / 0.15) 130deg,
+        rgb(82 89 156 / 0.5) 240deg,
+        rgb(44 186 226 / 0.15) 360deg
+      )
+      border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 24px 60px -30px rgb(44 186 226 / 0.6);
+  animation: card-spin 7s linear infinite;
+}
+
+.custom-card:hover,
+.custom-card:focus-visible {
+  animation-duration: 2.8s;
+  box-shadow: 0 30px 70px -28px rgb(44 186 226 / 0.85);
+}
+
+@keyframes card-spin {
+  to {
+    --card-angle: 360deg;
+  }
+}
+
+.custom-chip {
+  animation: chip-drift 5.4s var(--ease-in-out-soft) infinite;
+}
+
+@keyframes chip-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+/* Plant timeline: a point of light that travels the drawn track. */
+.track-light {
+  animation: track-travel 6s var(--ease-in-out-soft) infinite;
+}
+
+@keyframes track-travel {
+  0% {
+    inset-inline-start: 0%;
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    inset-inline-start: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes stat-ring {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
 .glass-hover {
   transition:
     transform var(--dur-normal) var(--ease-smooth),

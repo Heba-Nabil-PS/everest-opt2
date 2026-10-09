@@ -36,10 +36,12 @@ export const home = {
     intro:
       "Every number below is audited, current and reproducible on request. Certificates are available in the resources library.",
     stats: [
-      { value: 45, suffix: "+", label: "Years in operation", detail: "Continuous manufacturing since 1981" },
-      { value: 4, suffix: "M+", label: "Coolers delivered", detail: "Across beverage, dairy and retail" },
-      { value: 86, suffix: "", label: "Countries present", detail: "Direct supply and distributor network" },
-      { value: 20, suffix: "%", label: "Energy saved with EMMD", detail: "Measured against comparable fixed-speed units" },
+      { value: 45, suffix: "", label: "Years in commercial refrigeration", detail: "Continuous manufacturing since 1981" },
+      { value: 5, suffix: "", label: "Manufacturing countries", detail: "UAE, Egypt, Saudi Arabia, Sri Lanka and India" },
+      { value: 1800, suffix: "+", label: "People employed", detail: "Across every plant and office" },
+      { value: 86, suffix: "+", label: "Export markets", detail: "Direct supply and distributor network" },
+      { value: 4, suffix: "M+", label: "Coolers in the field", detail: "Across beverage, dairy and retail" },
+      { value: 600, suffix: "k+", label: "Units of annual capacity", detail: "Combined across every plant" },
     ],
     certificationsLabel: "Independently certified",
   },
@@ -47,6 +49,9 @@ export const home = {
   categories: {
     eyebrow: "Product range",
     heading: "Our Products",
+    showcaseHeading: "Two ranges, one engineering standard",
+    modelsLabel: "models",
+    formatsLabel: "formats",
     intro:
       "Every unit shares the same compressor sourcing, the same testing regime and the same after-sales network. Choose the format your outlet needs.",
     cta: "View Products",
@@ -69,22 +74,29 @@ export const home = {
       {
         title: "Global manufacturing leadership",
         body: "Factories in the UAE, Egypt, Saudi Arabia, Sri Lanka and India, 400,000+ units of annual capacity, and the scale to absorb a national rollout without splitting your order across suppliers.",
-        metric: "86 countries supplied",
+        metric: "86+ export markets",
+        links: [
+          { label: "About Us", href: "/about" },
+          { label: "Global Presence", href: "/global-presence" },
+        ],
       },
       {
-        title: "Trust and credibility",
-        body: "ISO 9001 certified since 1994, CB certified to IEC 60335, and conforming to UAE, Saudi and GCC product marking. Every unit is serialised, tested and traceable to its production batch.",
-        metric: "ISO 9001 · CB · GCC marking",
-      },
-      {
-        title: "Engineering and innovation",
-        body: "In-house R&D, climate chambers and endurance testing. EMMD control, LED systems and refrigerant transitions are developed and validated on site.",
-        metric: "In-house R&D and test labs",
+        title: "Trust and engineering",
+        body: "ISO 9001 certified since 1994, with in-house R&D, climate chambers and endurance testing. Every unit is tested and traceable to its production batch.",
+        metric: "ISO 9001 · In-house R&D and test labs",
+        links: [{ label: "R&D & Innovation", href: "/innovation" }],
       },
       {
         title: "Sustainability and responsibility",
         body: "Integrated environmental and occupational health and safety systems, monitored and evaluated continuously, with fair labour and business practice across our supply chain.",
         metric: "ISO 14001 · ISO 45001",
+        links: [{ label: "Sustainability", href: "/sustainability" }],
+      },
+      {
+        title: "Everest CoolCare",
+        body: "Our after-sales service: maintenance, mobile service vans, refurbishment and annual maintenance contracts that keep every cabinet running.",
+        metric: "After-sales service",
+        links: [{ label: "Everest CoolCare", href: "/services" }],
       },
     ],
   },

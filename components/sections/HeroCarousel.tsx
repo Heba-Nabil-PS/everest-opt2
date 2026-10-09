@@ -357,11 +357,12 @@ export function HeroCarousel({ slides, labels, interval = 7000 }: HeroCarouselPr
           })}
         </div>
 
-        {/* Controls: numbered tabs with autoplay progress, arrows, pause. */}
+        {/* Controls: numbered tabs with autoplay progress, and a pause button
+            that stays out of sight until the strip is hovered or focused. */}
         <div
           /* The end padding leaves the corner to the fixed chat launcher
              (a round button on phones, a wider pill from sm up). */
-          className="anim-fade-in mt-8 me-20 flex items-center gap-4 rounded-full glass-chip py-2 pe-2 ps-5 sm:me-56 lg:mt-12"
+          className="group/controls anim-fade-in mt-8 me-20 flex items-center gap-4 sm:me-56 lg:mt-12"
           style={{ animationDelay: "900ms" }}
         >
           <ol
@@ -424,39 +425,20 @@ export function HeroCarousel({ slides, labels, interval = 7000 }: HeroCarouselPr
           </ol>
 
           <div className="flex shrink-0 items-center gap-2">
-            {([-1, 1] as const).map((dir) => (
-              <button
-                key={dir}
-                type="button"
-                onClick={() => goTo(active + dir, dir)}
-                aria-label={dir === -1 ? labels.previous : labels.next}
-                className="group hidden h-11 w-11 place-items-center rounded-full border border-white/25 text-white transition-[background-color,border-color,color] duration-300 hover:border-glacier-300 hover:bg-glacier-400 hover:text-navy-900 sm:grid"
-              >
-                <Icon
-                  name={dir === -1 ? "arrowLeft" : "arrowRight"}
-                  size={20}
-                  className={cn(
-                    "transition-transform duration-300 rtl:-scale-x-100",
-                    dir === -1 ? "group-hover:-translate-x-0.5" : "group-hover:translate-x-0.5",
-                  )}
-                />
-              </button>
-            ))}
-
             {reduced ? null : (
               <button
                 type="button"
                 onClick={() => setUserPaused((paused) => !paused)}
                 aria-label={userPaused ? labels.play : labels.pause}
                 aria-pressed={userPaused}
-                className="grid h-11 w-11 place-items-center rounded-full border border-white/25 bg-navy-950/40 text-white backdrop-blur-md transition-[border-color,background-color] duration-300 hover:border-white/60 hover:bg-navy-950/60"
+                className="grid h-9 w-9 place-items-center rounded-full border border-white/25 bg-navy-950/40 text-white opacity-0 backdrop-blur-md transition-[opacity,border-color,background-color] duration-300 hover:border-white/60 hover:bg-navy-950/60 focus-visible:opacity-100 group-hover/controls:opacity-100"
               >
                 {userPaused ? (
-                  <Icon name="play" size={20} className="translate-x-px fill-current" />
+                  <Icon name="play" size={16} className="translate-x-px fill-current" />
                 ) : (
                   <span aria-hidden="true" className="flex gap-1">
-                    <span className="h-3.5 w-1 rounded-sm bg-current" />
-                    <span className="h-3.5 w-1 rounded-sm bg-current" />
+                    <span className="h-3 w-0.5 rounded-sm bg-current" />
+                    <span className="h-3 w-0.5 rounded-sm bg-current" />
                   </span>
                 )}
               </button>

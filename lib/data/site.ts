@@ -67,9 +67,7 @@ const navArrangements: Record<1 | 2, { main: NavItem[]; utility: { key: NavKey; 
     ],
     utility: [
       { key: "news", href: "/news" },
-      { key: "careers", href: "/careers" },
       { key: "presence", href: "/global-presence" },
-      { key: "resources", href: "/resources" },
     ],
   },
   2: {
@@ -90,8 +88,6 @@ const navArrangements: Record<1 | 2, { main: NavItem[]; utility: { key: NavKey; 
     ],
     utility: [
       { key: "news", href: "/news" },
-      { key: "careers", href: "/careers" },
-      { key: "resources", href: "/resources" },
     ],
   },
 };
