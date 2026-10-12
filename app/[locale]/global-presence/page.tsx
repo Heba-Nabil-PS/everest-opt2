@@ -84,9 +84,6 @@ export default async function PresencePage(props: PageProps<"/[locale]/global-pr
           <ButtonLink href="#footprint" icon="arrowRight">
             {p.footprint.eyebrow}
           </ButtonLink>
-          <ButtonLink href={path("/distributors")} variant="inverse">
-            {p.cta.primary}
-          </ButtonLink>
         </div>
         {/* Room for the stats panel that overlaps the bottom of the hero. */}
         <div aria-hidden="true" className="h-16 lg:h-20" />
@@ -436,7 +433,7 @@ export default async function PresencePage(props: PageProps<"/[locale]/global-pr
         </Shell>
       </Section>
 
-      {/* Why we build where we build + distributor CTA. Deep navy lit by two
+      {/* Why we build where we build. Deep navy lit by two
           slow glows, so it belongs to the same night as the rest of the page. */}
       <Section ground="deep" aria-labelledby="expansion-heading" className="overflow-hidden">
         <div aria-hidden="true" className="bg-grid-inverse pointer-events-none absolute inset-0 -z-10 opacity-40" />
@@ -489,26 +486,6 @@ export default async function PresencePage(props: PageProps<"/[locale]/global-pr
             </Reveal>
           </div>
 
-          <Reveal className="mt-16">
-            <div className="custom-card relative isolate flex flex-col items-start justify-between gap-6 overflow-hidden rounded-[1.75rem] p-7 lg:flex-row lg:items-center lg:p-10">
-              <Glow className="-start-20 -top-24 h-64 w-64 opacity-60" />
-              <div className="flex items-start gap-5">
-                <span aria-hidden="true" className="relative hidden h-14 w-14 shrink-0 place-items-center sm:grid">
-                  <span className="stat-ring absolute inset-0 rounded-2xl border border-glacier-300/60" />
-                  <span className="grid h-14 w-14 place-items-center rounded-2xl bg-glacier-400 text-navy-950">
-                    <Icon name="globe" size={24} />
-                  </span>
-                </span>
-                <div>
-                  <h2 className="text-2xl text-white md:text-3xl">{p.cta.heading}</h2>
-                  <p className="mt-2 max-w-[58ch] text-white/70">{p.cta.body}</p>
-                </div>
-              </div>
-              <ButtonLink href={path("/distributors")} size="lg" icon="arrowRight" className="shrink-0">
-                {p.cta.primary}
-              </ButtonLink>
-            </div>
-          </Reveal>
         </Shell>
       </Section>
     </>

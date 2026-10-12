@@ -261,7 +261,7 @@ export const pages = {
       stats: [
         { value: "43°C", label: "Climate-chamber test ambient" },
         { value: "±0.5°C", label: "Bottom-shelf temperature band" },
-        { value: "20%", label: "Energy saved with EMMD control" },
+        { value: "ISO 17025", label: "Accredited test laboratory" },
         { value: "100%", label: "Circuits nitrogen pressure-tested" },
       ],
     },
@@ -857,7 +857,7 @@ export const pages = {
       { value: 6, suffix: "", label: "Factories, operating and planned" },
       { value: 4, suffix: "M+", label: "Coolers sold worldwide" },
       { value: 400, suffix: "K+", label: "Units of annual capacity" },
-      { value: 1200, suffix: "+", label: "Professionals" },
+      { value: 1800, suffix: "+", label: "People employed" },
       { value: 60, suffix: "+", label: "Global brand clients" },
     ],
     footprint: {

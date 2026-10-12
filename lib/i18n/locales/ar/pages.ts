@@ -259,7 +259,7 @@ export const pages = {
       stats: [
         { value: "43°C", label: "حرارة اختبار الغرفة المناخية" },
         { value: "±0.5°C", label: "نطاق حرارة الرفّ السفلي" },
-        { value: "20%", label: "توفير الطاقة مع تحكّم EMMD" },
+        { value: "ISO 17025", label: "مختبر اختبار معتمد" },
         { value: "100%", label: "من الدوائر تُختبر بضغط النيتروجين" },
       ],
     },
@@ -855,7 +855,7 @@ export const pages = {
       { value: 6, suffix: "", label: "مصانع عاملة ومخطّطة" },
       { value: 4, suffix: "M+", label: "ثلاجة مُباعة حول العالم" },
       { value: 400, suffix: "K+", label: "وحدة طاقة إنتاجية سنوية" },
-      { value: 1200, suffix: "+", label: "موظف متخصّص" },
+      { value: 1800, suffix: "+", label: "موظف" },
       { value: 60, suffix: "+", label: "علامة عالمية من عملائنا" },
     ],
     footprint: {

@@ -73,7 +73,7 @@ export const home = {
     items: [
       {
         title: "Global manufacturing leadership",
-        body: "Factories in the UAE, Egypt, Saudi Arabia, Sri Lanka and India, 400,000+ units of annual capacity, and the scale to absorb a national rollout without splitting your order across suppliers.",
+        body: "Factories in the UAE, Egypt, Saudi Arabia, Sri Lanka and India, 600,000+ units of annual capacity, and the scale to absorb a national rollout without splitting your order across suppliers.",
         metric: "86+ export markets",
         links: [
           { label: "About Us", href: "/about" },
@@ -176,7 +176,7 @@ export const home = {
     body: "Everest supplies 86 countries from factories across the Middle East, Africa and Asia — including a new mega factory in India with Varun Beverages.",
     operatingLabel: "Where we operate",
     futureLabel: "Next horizon",
-    cta: "Become a Distributor",
+    cta: "Explore Global Presence",
   },
 
   clients: {
@@ -206,10 +206,10 @@ export const home = {
   discover: {
     eyebrow: "At a glance",
     heading: "Discover Everest",
-    body: "Numbers tell our story: four decades of manufacturing, factories across three continents, and a team of more than 1,200 professionals in engineering, design, development and testing.",
+    body: "Numbers tell our story: four decades of manufacturing, factories across three continents, and a team of more than 1,800 people in engineering, design, development and testing.",
     stats: [
-      { value: 1200, suffix: "+", label: "Professionals" },
-      { value: 400, suffix: "K+", label: "Units produced a year" },
+      { value: 1800, suffix: "+", label: "People employed" },
+      { value: 600, suffix: "K+", label: "Units produced a year" },
       { value: 60, suffix: "+", label: "Global brand clients" },
       { value: 6, suffix: "", label: "Factories" },
     ],

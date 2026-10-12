@@ -46,7 +46,7 @@ export function PresenceSection({
               ))}
             </Reveal>
 
-            <ButtonLink href={localePath(locale, "/distributors")} className="mt-8" icon="arrowRight">
+            <ButtonLink href={localePath(locale, "/global-presence")} className="mt-8" icon="arrowRight">
               {d.home.presence.cta}
             </ButtonLink>
           </div>

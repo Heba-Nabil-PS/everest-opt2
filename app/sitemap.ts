@@ -19,7 +19,6 @@ const staticPaths = [
   "/careers",
   "/contact",
   "/customize",
-  "/distributors",
   "/privacy",
   "/terms",
 ];

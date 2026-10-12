@@ -58,7 +58,7 @@ export function Hero({ locale, dictionary: d }: { locale: Locale; dictionary: Di
       tab: h.presence.eyebrow,
       title: h.presence.heading,
       body: h.hero.carousel.bodies.presence,
-      cta: { href: path("/distributors"), label: h.presence.cta },
+      cta: { href: path("/global-presence"), label: h.presence.cta },
     },
   ];
 

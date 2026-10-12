@@ -42,8 +42,8 @@ export const directors: Person[] = [
     name: { en: "Name to be confirmed", ar: "الاسم قيد التأكيد" },
     role: { en: "Director of Operations", ar: "مدير العمليات" },
     bio: {
-      en: "Runs manufacturing across the group's plants, capacity planning for 400,000+ units a year and the supply chain behind every national rollout.",
-      ar: "يدير التصنيع عبر مصانع المجموعة، وتخطيط طاقة إنتاجية تتجاوز 400,000 وحدة سنوياً، وسلسلة التوريد وراء كل عملية طرح وطنية.",
+      en: "Runs manufacturing across the group's plants, capacity planning for 600,000+ units a year and the supply chain behind every national rollout.",
+      ar: "يدير التصنيع عبر مصانع المجموعة، وتخطيط طاقة إنتاجية تتجاوز 600,000 وحدة سنوياً، وسلسلة التوريد وراء كل عملية طرح وطنية.",
     },
     photo: "/images/director-1.jpg",
   },

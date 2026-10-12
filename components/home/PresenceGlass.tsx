@@ -29,7 +29,7 @@ export function PresenceGlass({ locale, dictionary: d }: { locale: Locale; dicti
       <Shell>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading id="presence-heading" eyebrow={p.eyebrow} title={p.heading} intro={p.body} inverse />
-          <ButtonLink href={localePath(locale, "/distributors")} size="lg" icon="arrowRight" className="shrink-0 self-start lg:self-end">
+          <ButtonLink href={localePath(locale, "/global-presence")} size="lg" icon="arrowRight" className="shrink-0 self-start lg:self-end">
             {p.cta}
           </ButtonLink>
         </div>
