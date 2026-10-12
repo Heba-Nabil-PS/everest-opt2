@@ -15,7 +15,7 @@ interface Plant {
 
 /**
  * The plants in the order they opened. When the panel scrolls in, the track
- * draws itself, each stop's marker pops in turn and its card rises; after that
+ * draws itself, each stop's marker pops in turn and its card fades in; after that
  * a point of light keeps travelling the track and the last stop, still to
  * come, pulses. Horizontal from lg, a vertical rail on phones. The finished
  * state is what the server renders, so nothing is hidden without JS or under
@@ -55,7 +55,7 @@ export function PlantTimeline({
         )
           .from(root.querySelectorAll("[data-node]"), { scale: 0, opacity: 0, duration: 0.6, stagger: 0.25, ease: "back.out(2.2)" }, 0.15)
           .from(root.querySelectorAll("[data-year]"), { y: 14, opacity: 0, duration: 0.7, stagger: 0.25 }, 0.25)
-          .from(root.querySelectorAll("[data-card]"), { y: 24, opacity: 0, duration: 0.8, stagger: 0.25 }, 0.35);
+          .from(root.querySelectorAll("[data-card]"), { opacity: 0, duration: 0.8, stagger: 0.25 }, 0.35);
       });
       return () => mm.revert();
     },
@@ -128,7 +128,7 @@ export function PlantTimeline({
                 <div
                   data-card
                   className={cn(
-                    "glass-chip w-full rounded-2xl p-4 transition-[transform,border-color,background-color] duration-500 ease-[var(--ease-smooth)] group-hover:-translate-y-1 group-hover:border-glacier-300/60 lg:order-3 lg:mt-2",
+                    "glass-chip w-full rounded-2xl p-4 transition-[transform,border-color,background-color] duration-500 ease-[var(--ease-smooth)] group-hover:-translate-y-1 group-hover:border-glacier-300/60 lg:order-3 lg:mt-2 lg:flex-1",
                     upcoming && "border-glacier-300/50 bg-glacier-400/10",
                   )}
                 >
